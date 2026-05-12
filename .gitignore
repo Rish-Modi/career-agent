@@ -5,3 +5,18 @@ __pycache__/
 Thumbs.db
 output/
 *.log
+
+# Local Claude Code settings
+.claude/settings.local.json
+
+# Personal career files — copy from career/*.template.md to get started
+career/impact-doc.md
+career/goals.md
+career/brag-doc.md
+career/current-resume.md
+career/story-bank.json
+career/coding-log.md
+
+# Per-application working folders (all personal)
+applications/*
+!applications/.gitkeep

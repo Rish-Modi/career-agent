@@ -4,15 +4,24 @@ A Claude Code project for managing job search and career progression.
 
 ## Setup
 
-1. Open this folder in Claude Code: `claude` from inside the directory.
-2. Fill in the template files in `career/`:
-   - `impact-doc.md` — your detailed work history (most important)
-   - `goals.md` — what you're targeting
-   - `brag-doc.md` — raw material for resumes and stories
-3. Install scraper dependencies (one-time):
+1. Clone the repo and `cd` into it.
+2. Copy the templates into your own (gitignored) working files:
+   ```bash
+   cp career/impact-doc.template.md career/impact-doc.md
+   cp career/goals.template.md      career/goals.md
+   cp career/brag-doc.template.md   career/brag-doc.md
+   ```
+3. Open the folder in Claude Code: `claude` from inside the directory.
+4. Fill in your real content in:
+   - `career/impact-doc.md` — your detailed work history (most important)
+   - `career/goals.md` — what you're targeting
+   - `career/brag-doc.md` — raw material for resumes and stories
+5. Install scraper dependencies (one-time):
    ```bash
    pip install requests beautifulsoup4 --break-system-packages
    ```
+
+The `career/*.md` files and everything under `applications/` are gitignored, so your personal data stays local. Only the `.template.md` skeletons are shared.
 
 ## Skills
 
