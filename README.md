@@ -2,38 +2,62 @@
 
 A Claude Code project that turns job searching into a structured workflow. Your career history, goals, target companies, and active applications all live in one repo so Claude can reason across them. No more juggling Google Docs, Notion, and a dozen open JDs.
 
-## What it helps you do
+## What's ready to use
 
 | Skill | What it does | Trigger phrase |
 |---|---|---|
 | `job-analyzer` | Paste a JD, get a grounded fit analysis (skills match, level alignment, gaps, comp signal). Persists JD + analysis to `applications/<company>/<role>/role.md`. | *"Here's a JD: [paste]. Worth pursuing?"* |
-| `job-scraper` | Drop 10+ URLs, get them clustered by role archetype with a tailored resume per cluster. | *"Here are 8 jobs: [URLs]. Cluster and build resumes."* |
-| `resume-builder` | Reshape your impact doc into a posting-specific resume in Markdown, `.docx`, and `.pdf`, versioned in git so you can diff drafts. | *"Build a resume for this Stripe staff role: [JD]"* |
-| `interview-prep` | STAR-formatted story bank from your real work history; mock behavioral rounds with hire / no-hire feedback. | *"Build my story bank for the Datadog interview"* / *"Mock interview me, Stripe E5 behavioral"* |
-| `coding-prep` | Socratic tutoring that won't hand you the solution; mock technical rounds with time-boxing; log of where you stumbled. | *"Practice a medium sliding-window problem"* / *"Mock interview me, 45 min, Google-style"* |
+| `resume-builder` | Reshape your impact doc into a posting-specific resume in Markdown and `.docx`. | *"Build a resume for this Stripe staff role: [JD]"* |
+| `cover-letter` | Write a tailored cover letter grounded in your impact doc and the role's specific requirements. Saves `.md` and `.docx` alongside the resume. | *"Write a cover letter for the Stripe staff role"* |
 | `daily-summary` | EOD log of artifacts touched, open loops, patterns across the day, and concrete next steps. Writes to `career/daily-log/YYYY-MM-DD.md`. | *"Wrap up the day"* / *"EOD summary"* |
 | `morning` | AM briefing: yesterday's open items + stale roles (>7 days untouched) + one suggested first move. Read-only. | *"/morning"* / *"What's on my plate today?"* |
 
+## In progress
+
+| Skill | Status |
+|---|---|
+| `interview-prep` | STAR story bank and mock behavioral rounds. Coming soon. |
+| `coding-prep` | Socratic tutoring and mock technical rounds. Coming soon. |
+| `job-scraper` | Batch URL scraping, role clustering, and per-cluster resumes. Coming soon. |
+
 Every skill is grounded in the files under `career/`: your impact doc, goals, and brag doc. Fill those in once and the advice stops being generic.
+
+## Dependencies
+
+All dependencies are Python packages. Install them once before first use.
+
+| Package | Used by | Install |
+|---|---|---|
+| `python-docx` | `resume-builder`, `cover-letter` (generates `.docx` output) | `pip install python-docx` |
+| `reportlab` | `resume-builder` (generates `.pdf` output) | `pip install reportlab` |
+| `requests` | `job-scraper`, `job-analyzer` (fetches URLs) | `pip install requests` |
+| `beautifulsoup4` | `job-scraper` (parses scraped HTML) | `pip install beautifulsoup4` |
+
+Install all at once:
+
+```bash
+pip install python-docx reportlab requests beautifulsoup4
+```
+
+You also need [Claude Code](https://claude.ai/code) installed and authenticated.
 
 ## Setup
 
 1. Clone the repo and `cd` into it.
 2. Copy the templates into your own (gitignored) working files:
    ```bash
-   cp career/impact-doc.template.md career/impact-doc.md
-   cp career/goals.template.md      career/goals.md
-   cp career/brag-doc.template.md   career/brag-doc.md
+   cp career/impact-doc.template.md    career/impact-doc.md
+   cp career/goals.template.md         career/goals.md
+   cp career/brag-doc.template.md      career/brag-doc.md
+   cp career/personal-info.template.md career/personal-info.md
    ```
-3. Open the folder in Claude Code: `claude` from inside the directory.
-4. Fill in your real content in:
+3. Install dependencies (see above).
+4. Open the folder in Claude Code: `claude` from inside the directory.
+5. Fill in your real content in:
+   - `career/personal-info.md`: name, email, phone, location, LinkedIn (used in every resume and cover letter header)
    - `career/impact-doc.md`: your detailed work history (most important)
    - `career/goals.md`: what you're targeting
    - `career/brag-doc.md`: raw material for resumes and stories
-5. Install scraper dependencies (one-time):
-   ```bash
-   pip install requests beautifulsoup4 --break-system-packages
-   ```
 
 The `career/*.md` working files, `career/daily-log/`, and everything under `applications/` are gitignored, so your personal data stays local. Only the `.template.md` skeletons are shared.
 
@@ -60,6 +84,8 @@ career/                              # Your background. Edit these
   goals.md                           # gitignored
   brag-doc.template.md
   brag-doc.md                        # gitignored
+  personal-info.template.md          # template (committed)
+  personal-info.md                   # your contact info (gitignored)
   current-resume.md                  # gitignored (create as needed)
   story-bank.json                    # gitignored (created by interview-prep)
   coding-log.md                      # gitignored (created by coding-prep)
@@ -69,7 +95,8 @@ applications/                        # Per-application work (gitignored)
   <company>/
     <role-slug>/
       role.md                        # JD + fit analysis + notes (from job-analyzer)
-      resume.md / .pdf               # tailored resume (from resume-builder)
+      resume.md / .docx              # tailored resume (from resume-builder)
+      cover-letter.md / .docx        # tailored cover letter (from cover-letter)
       story-bank.json                # tailored stories (from interview-prep)
       interviews/                    # per-round notes
 .claude/
@@ -80,6 +107,7 @@ applications/                        # Per-application work (gitignored)
       parse.py
       output/<date>/                 # scraper run outputs
     resume-builder/
+    cover-letter/
     interview-prep/
     coding-prep/
     daily-summary/

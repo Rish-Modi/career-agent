@@ -17,6 +17,7 @@ My career history lives in `career/impact-doc.md` and related files. Reference t
 - `job-analyzer`: Analyze a single job posting for fit. Persists analysis to `applications/<company>/<role>/role.md`.
 - `job-scraper`: Batch-scrape multiple posting URLs, cluster them by archetype, generate a tailored resume per cluster.
 - `resume-builder`: Build or tailor a resume (Markdown, .docx, .pdf).
+- `cover-letter`: Write a tailored cover letter for a specific role (Markdown, .docx).
 - `interview-prep`: Behavioral prep, STAR stories, mock interviews.
 - `coding-prep`: Coding interview practice and tutoring.
 - `daily-summary`: End-of-day log of what I did, open loops, and next steps. Writes to `career/daily-log/YYYY-MM-DD.md`.
@@ -34,6 +35,8 @@ career/                              # My background, read these for context
   goals.md                           # Gitignored
   brag-doc.template.md
   brag-doc.md                        # Gitignored
+  personal-info.template.md          # Template (committed)
+  personal-info.md                   # Your contact info (gitignored)
   current-resume.md                  # Gitignored
   story-bank.json                    # Gitignored (created by interview-prep)
   coding-log.md                      # Gitignored (created by coding-prep)
@@ -44,6 +47,7 @@ applications/                        # Per-application work (gitignored)
     <role-slug>/
       role.md                        # JD + fit analysis + free-form notes (from job-analyzer)
       resume.md / .pdf               # Tailored resume (from resume-builder)
+      cover-letter.md / .docx        # Tailored cover letter (from cover-letter)
       story-bank.json                # Tailored stories (from interview-prep)
       interviews/                    # Per-round notes
 .claude/

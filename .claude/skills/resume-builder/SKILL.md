@@ -9,7 +9,12 @@ description: Build, tailor, or revise a resume. Use when the user asks for a res
 Any request to build, tailor, revise, or critique a resume. Also invoked by `job-scraper` to produce per-cluster resume variants.
 
 ## Inputs
-- **Source material**: `career/impact-doc.md` (always), `career/brag-doc.md` if it exists, `career/current-resume.md` as a baseline if it exists.
+- **Source material** — read all that exist before drafting:
+  - `career/impact-doc.md` — always. Primary source of truth for roles, projects, and metrics.
+  - `career/brag-doc.md` — read if it exists. Contains quantified wins and recognition not always captured in the impact doc. Cross-check metrics here before finalizing any bullet.
+  - `career/goals.md` — read if it exists. Use to understand target role type, level, and what to emphasize or deprioritize.
+  - `career/personal-info.md` — read if it exists. Use for the resume header: name, email, phone, location, LinkedIn, GitHub. If the file does not exist, use placeholders and note them explicitly so the user can fill them in.
+  - `career/current-resume.md` — use as a baseline if it exists; otherwise build from scratch.
 - **Target** (one of):
   - A specific job description → tailor to it
   - An archetype profile from `job-scraper` → tailor to the cluster
@@ -71,3 +76,4 @@ End with a short summary of:
 - Don't include an "Objective" section. Use a one-line professional summary instead, only if it adds signal.
 - Don't list every technology I've ever touched. Curate to what matters for the target.
 - One page unless explicitly asked otherwise. Senior-level resumes can justify two pages; if I'm targeting staff+, ask.
+- **Never use em dashes or en dashes** (— or –) anywhere in the resume. Replace with a comma, colon, period, or parentheses. This applies to bullets, the summary, section headers, and job titles. No exceptions.
