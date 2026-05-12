@@ -14,36 +14,53 @@ My career history lives in `career/impact-doc.md` and related files. Reference t
 
 ## Available Skills
 
-- `job-analyzer`: Analyze a single job posting for fit
-- `job-scraper`: Batch-scrape multiple postings, cluster them, generate tailored resumes per cluster
-- `resume-builder`: Build or tailor a resume (Markdown, .docx, .pdf)
-- `interview-prep`: Behavioral prep, STAR stories, mock interviews
-- `coding-prep`: Coding interview practice and tutoring
+- `job-analyzer`: Analyze a single job posting for fit. Persists analysis to `applications/<company>/<role>/role.md`.
+- `job-scraper`: Batch-scrape multiple posting URLs, cluster them by archetype, generate a tailored resume per cluster.
+- `resume-builder`: Build or tailor a resume (Markdown, .docx, .pdf).
+- `interview-prep`: Behavioral prep, STAR stories, mock interviews.
+- `coding-prep`: Coding interview practice and tutoring.
+- `daily-summary`: End-of-day log of what I did, open loops, and next steps. Writes to `career/daily-log/YYYY-MM-DD.md`.
+- `morning`: AM briefing on yesterday's open items, stale roles (>7 days), and one suggested first move. Read-only.
 
 When I make a request, infer which skill fits and proceed. If multiple could apply or it's ambiguous, ask briefly before doing work.
 
 ## File Layout
 
 ```
-career/                  # My background, read these for context
-  impact-doc.md          # Detailed work history (AWS + Bill)
-  brag-doc.md            # Metrics, achievements, raw material
-  goals.md               # Career direction, target roles, constraints
-  current-resume.md      # Baseline resume
-  story-bank.json        # Behavioral interview stories
-applications/            # Per-application working folders
-  <company>-<role>/      # Created when I'm actively pursuing a role
-.claude/skills/          # Skill definitions (don't edit unless refining)
+career/                              # My background, read these for context
+  impact-doc.template.md             # Template (committed)
+  impact-doc.md                      # My version (gitignored)
+  goals.template.md
+  goals.md                           # Gitignored
+  brag-doc.template.md
+  brag-doc.md                        # Gitignored
+  current-resume.md                  # Gitignored
+  story-bank.json                    # Gitignored (created by interview-prep)
+  coding-log.md                      # Gitignored (created by coding-prep)
+  daily-log/                         # Gitignored (created by daily-summary)
+    YYYY-MM-DD.md
+applications/                        # Per-application work (gitignored)
+  <company>/
+    <role-slug>/
+      role.md                        # JD + fit analysis + free-form notes (from job-analyzer)
+      resume.md / .pdf               # Tailored resume (from resume-builder)
+      story-bank.json                # Tailored stories (from interview-prep)
+      interviews/                    # Per-round notes
+.claude/
+  skills/                            # Skill definitions (don't edit unless refining)
+  settings.local.json                # Personal permissions (gitignored)
 ```
 
 ## Working with Files
 
 - Edit `career/` files freely as I share more about my background.
-- Per-application work goes in `applications/<company>-<role>/`.
-- Skill outputs (scraped postings, generated resumes) go where the skill specifies, typically `output/` subfolders within the skill.
+- Per-application work goes in `applications/<company>/<role-slug>/`. Slugs are lowercase, kebab-case, short.
+- `role.md` files store the JD, fit analysis, and free-form notes only. No application status fields (stage, outcome, dates applied, referral, match level). Those live in my external tracker (Notion). Don't add them.
+- Skill outputs (scraped postings, generated resumes, daily logs) go where the skill specifies.
 
 ## Formatting
 
 - Default to clean prose. Use headers and bullets only when they aid scanning.
 - For deliverables (resumes, story banks, problem solutions), produce files I can save and version.
 - Be concise.
+- Never use em dashes. Use commas, periods, parentheses, or colons instead.
