@@ -4,11 +4,15 @@ A Claude Code project that turns job searching into a structured workflow. Your 
 
 ## What it helps you do
 
-- **Decide which jobs to pursue** — Paste a JD, get a grounded fit analysis (skills match, level alignment, gaps, comp signal) instead of guessing from the marketing copy. *[`job-analyzer`]*
-- **Triage a pile of postings at once** — Drop 10+ URLs, get them clustered by role archetype, with a tailored resume per cluster instead of one generic resume for all. *[`job-scraper`]*
-- **Build resumes that match the role** — Reshape your impact doc into a posting-specific resume in Markdown, `.docx`, and `.pdf` — versioned in git so you can diff drafts. *[`resume-builder`]*
-- **Prep behavioral interviews systematically** — Generate a STAR-formatted story bank from your real work history, then run mock rounds with structured hire / no-hire feedback. *[`interview-prep`]*
-- **Practice coding interviews without spoilers** — Socratic tutoring that won't hand you the solution, mock technical rounds with realistic time-boxing, and a log of where you stumbled. *[`coding-prep`]*
+| Skill | What it does | Trigger phrase |
+|---|---|---|
+| `job-analyzer` | Paste a JD, get a grounded fit analysis (skills match, level alignment, gaps, comp signal). Persists JD + analysis to `applications/<company>/<role>/role.md`. | *"Here's a JD: [paste]. Worth pursuing?"* |
+| `job-scraper` | Drop 10+ URLs, get them clustered by role archetype with a tailored resume per cluster. | *"Here are 8 jobs: [URLs]. Cluster and build resumes."* |
+| `resume-builder` | Reshape your impact doc into a posting-specific resume in Markdown, `.docx`, and `.pdf` — versioned in git so you can diff drafts. | *"Build a resume for this Stripe staff role: [JD]"* |
+| `interview-prep` | STAR-formatted story bank from your real work history; mock behavioral rounds with hire / no-hire feedback. | *"Build my story bank for the Datadog interview"* / *"Mock interview me, Stripe E5 behavioral"* |
+| `coding-prep` | Socratic tutoring that won't hand you the solution; mock technical rounds with time-boxing; log of where you stumbled. | *"Practice a medium sliding-window problem"* / *"Mock interview me, 45 min, Google-style"* |
+| `daily-summary` | EOD log of artifacts touched, open loops, patterns across the day, and concrete next steps. Writes to `career/daily-log/YYYY-MM-DD.md`. | *"Wrap up the day"* / *"EOD summary"* |
+| `morning` | AM briefing: yesterday's open items + stale roles (>7 days untouched) + one suggested first move. Read-only. | *"/morning"* / *"What's on my plate today?"* |
 
 Every skill is grounded in the files under `career/` — your impact doc, goals, and brag doc. Fill those in once and the advice stops being generic.
 
@@ -31,67 +35,61 @@ Every skill is grounded in the files under `career/` — your impact doc, goals,
    pip install requests beautifulsoup4 --break-system-packages
    ```
 
-The `career/*.md` files and everything under `applications/` are gitignored, so your personal data stays local. Only the `.template.md` skeletons are shared.
+The `career/*.md` working files, `career/daily-log/`, and everything under `applications/` are gitignored, so your personal data stays local. Only the `.template.md` skeletons are shared.
 
-## Skills
+## A typical day
 
-- **`job-analyzer`** — "Is this a good fit?" on a single posting
-- **`job-scraper`** — Batch-analyze multiple postings, cluster them, generate tailored resumes per cluster
-- **`resume-builder`** — Build/tailor resumes (Markdown + .docx + .pdf)
-- **`interview-prep`** — Behavioral prep, STAR stories, mock interviews
-- **`coding-prep`** — Coding interview practice with Socratic tutoring
+```
+Morning   →   /morning                                  briefing on open items + suggested first move
+   ↓
+Daytime   →   paste a JD, build a resume, run a         per-role artifacts appear under
+              mock interview, practice coding           applications/<company>/<role>/
+   ↓
+Evening   →   "wrap up the day"                         log written to career/daily-log/YYYY-MM-DD.md
+```
 
-## Usage patterns
-
-### Quick fit check
-> "Here's a JD: <paste>. Is this worth pursuing?"
-Triggers `job-analyzer`.
-
-### Batch analysis with tailored resumes
-> "Here are 8 jobs I'm considering: <list of URLs>. Cluster them and build resumes."
-Triggers `job-scraper` → confirms buckets with you → invokes `resume-builder` per bucket.
-
-### Tailored resume for a specific role
-> "Build me a resume for this Stripe staff role: <JD>."
-Triggers `resume-builder` with the JD as target.
-
-### Behavioral prep
-> "I have an interview at Datadog next week. Build my story bank."
-Triggers `interview-prep` story bank mode.
-> "Mock interview me for a Stripe E5 behavioral round, strict mode."
-Triggers `interview-prep` mock mode.
-
-### Coding practice
-> "Practice a medium sliding-window problem with me."
-Triggers `coding-prep` in Socratic mode.
-> "Mock interview me, 45 min, Google-style."
-Triggers `coding-prep` mock mode.
+This repo handles the **deep work** — JD analysis, tailored resumes, interview prep, per-role artifacts. Application *status* (stage, dates applied, outcomes, match level) is intentionally **not** stored here — keep that in Notion or your tracker of choice. The two systems don't need to sync because they don't overlap.
 
 ## File layout
 
 ```
-career/                          # Your background — edit these
-  impact-doc.md
-  goals.md
-  brag-doc.md
-  current-resume.md              # (create as needed)
-  story-bank.json                # (created by interview-prep)
-  coding-log.md                  # (created by coding-prep)
-applications/                    # Per-application work
-  <company>-<role>/
-.claude/skills/                  # Skill definitions
-  job-analyzer/
-  job-scraper/
-    scrape.py
-    parse.py
-    output/<date>/                # Scraper run outputs
-  resume-builder/
-  interview-prep/
-  coding-prep/
-CLAUDE.md                        # Project-level instructions
+career/                              # Your background — edit these
+  impact-doc.template.md             # template (committed)
+  impact-doc.md                      # your version (gitignored)
+  goals.template.md
+  goals.md                           # gitignored
+  brag-doc.template.md
+  brag-doc.md                        # gitignored
+  current-resume.md                  # gitignored (create as needed)
+  story-bank.json                    # gitignored (created by interview-prep)
+  coding-log.md                      # gitignored (created by coding-prep)
+  daily-log/                         # gitignored (created by daily-summary)
+    2026-05-11.md
+applications/                        # Per-application work (gitignored)
+  <company>/
+    <role-slug>/
+      role.md                        # JD + fit analysis + notes (from job-analyzer)
+      resume.md / .pdf               # tailored resume (from resume-builder)
+      story-bank.json                # tailored stories (from interview-prep)
+      interviews/                    # per-round notes
+.claude/
+  skills/                            # Skill definitions
+    job-analyzer/
+    job-scraper/
+      scrape.py
+      parse.py
+      output/<date>/                 # scraper run outputs
+    resume-builder/
+    interview-prep/
+    coding-prep/
+    daily-summary/
+    morning/
+  settings.local.json                # personal permissions (gitignored)
+CLAUDE.md                            # project-level instructions to Claude
 ```
 
 ## Notes
 
 - The scraper auto-fails on LinkedIn and Indeed (login/JS walls). When that happens, paste the JD text and the workflow continues.
-- All skill outputs are files you can version with git. Consider `git init` so you can track resume iterations.
+- `role.md` files store the JD, fit analysis, and free-form notes only — no status fields. Stage / outcome / dates applied / referral / match level all live in your external tracker (e.g., Notion).
+- All skill outputs are plain markdown files you can edit by hand at any time.
