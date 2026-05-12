@@ -1,4 +1,4 @@
-# Career Guide
+# Career Agent
 
 A Claude Code project that turns job searching into a structured workflow. Your career history, goals, target companies, and active applications all live in one repo so Claude can reason across them. No more juggling Google Docs, Notion, and a dozen open JDs.
 

@@ -1,6 +1,6 @@
 ---
 name: daily-summary
-description: End-of-day summary of what I did with the career-guide tool. Auto-generates a record of artifacts created/modified, open loops, patterns across the day, and concrete next steps, then asks me to add anything missed. Saves to career/daily-log/YYYY-MM-DD.md. Use when I say "wrap up the day", "summarize today", "EOD summary", or similar end-of-session prompts.
+description: End-of-day summary of what I did with the career-agent tool. Auto-generates a record of artifacts created/modified, open loops, patterns across the day, and concrete next steps, then asks me to add anything missed. Saves to career/daily-log/YYYY-MM-DD.md. Use when I say "wrap up the day", "summarize today", "EOD summary", or similar end-of-session prompts.
 ---
 
 # Daily Summary
