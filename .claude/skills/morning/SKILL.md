@@ -33,7 +33,7 @@ If nothing qualifies as stale, **omit this section entirely**.
 
 Include a rough effort estimate ("~45 min", "~1 hr") so the user can decide if there's time for it now.
 
-If the user has nothing pending (clean slate, no carryover, no stale items), suggest a fresh activity grounded in `career/goals.md` — e.g., "Start a JD analysis for a Tier 1 company you haven't explored yet."
+If the user has nothing pending (clean slate, no carryover, no stale items), suggest a fresh activity grounded in `career/goals.md`, e.g., "Start a Job Description analysis for a Tier 1 company you haven't explored yet."
 
 ## Output format
 

@@ -6,7 +6,7 @@ description: Scrape multiple job posting URLs, cluster them by role archetype, a
 # Job Requirement Scraper
 
 ## When to use
-The user provides 2+ job posting URLs (or pastes JD text for multiple roles) and wants to:
+The user provides 2+ job posting URLs (or pastes Job Description text for multiple roles) and wants to:
 - Compare requirements across postings
 - Group similar roles together
 - Generate a tailored resume per group
@@ -31,10 +31,10 @@ python .claude/skills/job-scraper/scrape.py <run_dir> <url1> <url2> ...
 ```
 
 The script writes one file per URL to `<run_dir>/raw/`. For each URL it either:
-- Succeeds → writes `<n>-<slug>.txt` with extracted JD text
+- Succeeds → writes `<n>-<slug>.txt` with extracted Job Description text
 - Fails → writes `<n>-<slug>.FAILED.txt` with the URL and reason
 
-For every failed URL, **stop and ask the user to paste the JD text**. Save their pasted text to `<run_dir>/raw/<n>-<slug>.txt` (replacing the .FAILED file). Don't proceed to parsing until every posting has content.
+For every failed URL, **stop and ask the user to paste the Job Description text**. Save their pasted text to `<run_dir>/raw/<n>-<slug>.txt` (replacing the .FAILED file). Don't proceed to parsing until every posting has content.
 
 ### 4. Parse and normalize
 Run:

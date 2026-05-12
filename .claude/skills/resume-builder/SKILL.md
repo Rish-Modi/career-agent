@@ -25,7 +25,7 @@ Any request to build, tailor, revise, or critique a resume. Also invoked by `job
 
 ### 1. Confirm target
 If the target isn't obvious from context, ask:
-- Specific JD, archetype profile, or general?
+- Specific Job Description, archetype profile, or general?
 - Length preference?
 - Any role/company I'm asking you to *deprioritize* (e.g., I don't want my AWS work to dominate)?
 
@@ -41,8 +41,8 @@ Every bullet must:
 If `impact-doc.md` is missing the numbers, surface that and ask me to fill them in rather than fabricating.
 
 ### 3. Tailor
-When a target JD or archetype is provided:
-- Match the JD's keyword vocabulary where it's truthful (e.g., if they say "distributed systems," use that phrase if it applies to my work — don't keyword-stuff with terms I haven't used)
+When a target Job Description or archetype is provided:
+- Match the Job Description's keyword vocabulary where it's truthful (e.g., if they say "distributed systems," use that phrase if it applies to my work, don't keyword-stuff with terms I haven't used)
 - Reorder bullets so the most relevant come first within each role
 - Cut bullets that don't reinforce the target — even strong ones
 - Adjust the summary/header to mirror the role's framing
@@ -77,3 +77,10 @@ End with a short summary of:
 - Don't list every technology I've ever touched. Curate to what matters for the target.
 - One page unless explicitly asked otherwise. Senior-level resumes can justify two pages; if I'm targeting staff+, ask.
 - **Never use em dashes or en dashes** (— or –) anywhere in the resume. Replace with a comma, colon, period, or parentheses. This applies to bullets, the summary, section headers, and job titles. No exceptions.
+- **Use generic, industry-standard terminology, not company-specific or tool-specific jargon.** The reader may not share my team's vocabulary. Translate internal shorthand to widely understood equivalents before it hits the bullet. Examples:
+  - "MR review cycle" → "code review cycle" (MR is GitLab-specific; PR is GitHub-specific; "code review" works everywhere)
+  - "Cut MR review cycle by 50%" → "Cut code review cycle by 50%"
+  - Internal product or team codenames → the public product name, or the generic capability ("checkout service," "payments pipeline")
+  - Internal acronyms (CRQ, TPS, OKR-of-the-quarter names) → spelled-out plain English
+  - Custom tooling names → the category of tool ("internal deploy tool" rather than the codename)
+  If a term is genuinely industry-standard (Kubernetes, Kafka, gRPC, OAuth), keep it. If in doubt, ask whether a reader at a different company would recognize it.
