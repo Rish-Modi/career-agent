@@ -1,6 +1,16 @@
 # Career Guide
 
-A Claude Code project for managing job search and career progression.
+A Claude Code project that turns job searching into a structured workflow. Your career history, goals, target companies, and active applications all live in one repo so Claude can reason across them — no more juggling Google Docs, Notion, and a dozen open JDs.
+
+## What it helps you do
+
+- **Decide which jobs to pursue** — Paste a JD, get a grounded fit analysis (skills match, level alignment, gaps, comp signal) instead of guessing from the marketing copy. *[`job-analyzer`]*
+- **Triage a pile of postings at once** — Drop 10+ URLs, get them clustered by role archetype, with a tailored resume per cluster instead of one generic resume for all. *[`job-scraper`]*
+- **Build resumes that match the role** — Reshape your impact doc into a posting-specific resume in Markdown, `.docx`, and `.pdf` — versioned in git so you can diff drafts. *[`resume-builder`]*
+- **Prep behavioral interviews systematically** — Generate a STAR-formatted story bank from your real work history, then run mock rounds with structured hire / no-hire feedback. *[`interview-prep`]*
+- **Practice coding interviews without spoilers** — Socratic tutoring that won't hand you the solution, mock technical rounds with realistic time-boxing, and a log of where you stumbled. *[`coding-prep`]*
+
+Every skill is grounded in the files under `career/` — your impact doc, goals, and brag doc. Fill those in once and the advice stops being generic.
 
 ## Setup
 
