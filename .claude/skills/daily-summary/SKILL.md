@@ -20,7 +20,7 @@ Artifact-level log of today's activity. Detect by:
 - Checking for new/modified entries in `career/coding-log.md`, `career/story-bank.json`, etc.
 
 Examples:
-- "Analyzed Stripe Staff Payments JD → `applications/stripe/staff-payments/role.md`"
+- "Analyzed Stripe Staff Payments Job Description → `applications/stripe/staff-payments/role.md`"
 - "Generated tailored resume for Anthropic MTS role → `applications/anthropic/mts/resume.pdf`"
 - "Mock interview (Google E5 style, 45 min) — verdict: lean hire, weak on graphs"
 - "Practiced 3 sliding-window problems — struggled on minimum-window-substring"
@@ -38,7 +38,7 @@ Cite the specific file each open loop refers to.
 
 ### Section 3: Patterns from today
 **Include this section only if ≥2 similar activities happened today.** Look for cross-cutting signal:
-- Recurring required skills across multiple JDs ("3 of 3 JDs flagged distributed systems depth")
+- Recurring required skills across multiple Job Descriptions ("3 of 3 Job Descriptions flagged distributed systems depth")
 - Recurring weakness across problems ("hesitated on 2 graph traversal problems")
 - Comp range observations across postings
 

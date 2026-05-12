@@ -1,13 +1,27 @@
 # Career Agent
 
-A Claude Code project that turns job searching into a structured workflow. Your career history, goals, target companies, and active applications all live in one repo so Claude can reason across them. No more juggling Google Docs, Notion, and a dozen open JDs.
+A Claude Code project that turns job searching into a structured workflow. Your career history, goals, target companies, and active applications all live in one repo so Claude can reason across them. No more juggling Google Docs, Notion, and a dozen open Job Descriptions.
+
+## A typical day
+
+```
+Morning   →   /morning                                  briefing on open items + suggested first move
+   ↓
+Daytime   →   paste a Job Description, build a          per-role artifacts appear under
+              resume, run a mock interview,             applications/<company>/<role>/
+              practice coding
+   ↓
+Evening   →   "wrap up the day"                         log written to career/daily-log/YYYY-MM-DD.md
+```
+
+This repo handles the **deep work**: Job Description analysis, tailored resumes, interview prep, per-role artifacts. Application *status* (stage, dates applied, outcomes, match level) is intentionally **not** stored here. Keep that in Notion or your tracker of choice. The two systems don't need to sync because they don't overlap.
 
 ## What's ready to use
 
 | Skill | What it does | Trigger phrase |
 |---|---|---|
-| `job-analyzer` | Paste a JD, get a grounded fit analysis (skills match, level alignment, gaps, comp signal). Persists JD + analysis to `applications/<company>/<role>/role.md`. | *"Here's a JD: [paste]. Worth pursuing?"* |
-| `resume-builder` | Reshape your impact doc into a posting-specific resume in Markdown and `.docx`. | *"Build a resume for this Stripe staff role: [JD]"* |
+| `job-analyzer` | Paste a Job Description, get a grounded fit analysis (skills match, level alignment, gaps, comp signal). Persists Job Description + analysis to `applications/<company>/<role>/role.md`. | *"Here's a Job Description: [paste]. Worth pursuing?"* |
+| `resume-builder` | Reshape your impact doc into a posting-specific resume in Markdown and `.docx`. | *"Build a resume for this Stripe staff role: [Job Description]"* |
 | `cover-letter` | Write a tailored cover letter grounded in your impact doc and the role's specific requirements. Saves `.md` and `.docx` alongside the resume. | *"Write a cover letter for the Stripe staff role"* |
 | `daily-summary` | EOD log of artifacts touched, open loops, patterns across the day, and concrete next steps. Writes to `career/daily-log/YYYY-MM-DD.md`. | *"Wrap up the day"* / *"EOD summary"* |
 | `morning` | AM briefing: yesterday's open items + stale roles (>7 days untouched) + one suggested first move. Read-only. | *"/morning"* / *"What's on my plate today?"* |
@@ -61,19 +75,6 @@ You also need [Claude Code](https://claude.ai/code) installed and authenticated.
 
 The `career/*.md` working files, `career/daily-log/`, and everything under `applications/` are gitignored, so your personal data stays local. Only the `.template.md` skeletons are shared.
 
-## A typical day
-
-```
-Morning   →   /morning                                  briefing on open items + suggested first move
-   ↓
-Daytime   →   paste a JD, build a resume, run a         per-role artifacts appear under
-              mock interview, practice coding           applications/<company>/<role>/
-   ↓
-Evening   →   "wrap up the day"                         log written to career/daily-log/YYYY-MM-DD.md
-```
-
-This repo handles the **deep work**: JD analysis, tailored resumes, interview prep, per-role artifacts. Application *status* (stage, dates applied, outcomes, match level) is intentionally **not** stored here. Keep that in Notion or your tracker of choice. The two systems don't need to sync because they don't overlap.
-
 ## File layout
 
 ```
@@ -94,7 +95,7 @@ career/                              # Your background. Edit these
 applications/                        # Per-application work (gitignored)
   <company>/
     <role-slug>/
-      role.md                        # JD + fit analysis + notes (from job-analyzer)
+      role.md                        # Job Description + fit analysis + notes (from job-analyzer)
       resume.md / .docx              # tailored resume (from resume-builder)
       cover-letter.md / .docx        # tailored cover letter (from cover-letter)
       story-bank.json                # tailored stories (from interview-prep)
@@ -118,6 +119,6 @@ CLAUDE.md                            # project-level instructions to Claude
 
 ## Notes
 
-- The scraper auto-fails on LinkedIn and Indeed (login/JS walls). When that happens, paste the JD text and the workflow continues.
-- `role.md` files store the JD, fit analysis, and free-form notes only. No status fields. Stage, outcome, dates applied, referral, match level all live in your external tracker (e.g., Notion).
+- The scraper auto-fails on LinkedIn and Indeed (login/JS walls). When that happens, paste the Job Description text and the workflow continues.
+- `role.md` files store the Job Description, fit analysis, and free-form notes only. No status fields. Stage, outcome, dates applied, referral, match level all live in your external tracker (e.g., Notion).
 - All skill outputs are plain markdown files you can edit by hand at any time.

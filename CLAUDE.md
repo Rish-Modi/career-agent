@@ -45,7 +45,7 @@ career/                              # My background, read these for context
 applications/                        # Per-application work (gitignored)
   <company>/
     <role-slug>/
-      role.md                        # JD + fit analysis + free-form notes (from job-analyzer)
+      role.md                        # Job Description + fit analysis + free-form notes (from job-analyzer)
       resume.md / .pdf               # Tailored resume (from resume-builder)
       cover-letter.md / .docx        # Tailored cover letter (from cover-letter)
       story-bank.json                # Tailored stories (from interview-prep)
@@ -59,7 +59,7 @@ applications/                        # Per-application work (gitignored)
 
 - Edit `career/` files freely as I share more about my background.
 - Per-application work goes in `applications/<company>/<role-slug>/`. Slugs are lowercase, kebab-case, short.
-- `role.md` files store the JD, fit analysis, and free-form notes only. No application status fields (stage, outcome, dates applied, referral, match level). Those live in my external tracker (Notion). Don't add them.
+- `role.md` files store the Job Description, fit analysis, and free-form notes only. No application status fields (stage, outcome, dates applied, referral, match level). Those live in my external tracker (Notion). Don't add them.
 - Skill outputs (scraped postings, generated resumes, daily logs) go where the skill specifies.
 
 ## Formatting

@@ -12,7 +12,7 @@ For 2+ postings at once, hand off to `job-scraper`.
 
 ## Workflow
 
-### 1. Get the JD
+### 1. Get the Job Description
 If a URL is provided, fetch it. If fetching fails or the page is JS-heavy (LinkedIn etc.), ask the user to paste the text.
 
 ### 2. Extract structure
@@ -37,7 +37,7 @@ For each significant requirement, rate against my background (from `career/impac
 Use **Strong / Moderate / Gap** — three buckets, no fence-sitting. Each justification must cite something concrete from my career, not generic claims.
 
 ### 4. Red and green flags
-Scan the JD's *language*, not just its requirements:
+Scan the Job Description's *language*, not just its requirements:
 - **Red flags**: vague scope, kitchen-sink requirements, "rockstar/ninja," unrealistic stack breadth, no mention of team, comp far below market, urgency cues that suggest churn
 - **Green flags**: clear scope, specific problems to solve, named team/org, reasonable level expectations, signals of engineering maturity (e.g., mentions of design review, on-call rotation structure, mentorship)
 
@@ -50,7 +50,7 @@ One of:
 ### 6. If applying, recommend
 - Top 3 strengths to lead with (cite specific work from my impact doc)
 - Gaps to preempt and how to frame them
-- Questions to ask the recruiter/hiring manager to clarify ambiguity in the JD
+- Questions to ask the recruiter/hiring manager to clarify ambiguity in the Job Description
 
 ### 7. Save the role workspace
 After producing the analysis, persist it to disk so downstream skills (`resume-builder`, `interview-prep`) and future sessions can reference it.
@@ -81,15 +81,15 @@ work_mode: hybrid                    # remote | hybrid | onsite | unknown
 job_id: 6173829                      # if available, else null
 link: https://stripe.com/jobs/...    # canonical posting URL
 date_added: 2026-05-11               # today's date when first created
-comp_range: $280k–$380k TC           # if stated in JD, else null
+comp_range: $280k–$380k TC           # if stated in Job Description, else null
 tech_stack: [Ruby, Go, Kafka, Postgres]
 ---
 
 ## Fit analysis
 (the Strong/Moderate/Gap table + red/green flags + verdict + recommendations from steps 3–6)
 
-## JD
-(full pasted JD text, verbatim — so we don't lose it if the URL rots)
+## Job Description
+(full pasted Job Description text, verbatim, so we don't lose it if the URL rots)
 
 ## Notes
 (empty placeholder for the user's ongoing free-form notes — questions, recruiter context, follow-ups)
