@@ -122,3 +122,4 @@ CLAUDE.md                            # project-level instructions to Claude
 - The scraper auto-fails on LinkedIn and Indeed (login/JS walls). When that happens, paste the Job Description text and the workflow continues.
 - `role.md` files store the Job Description, fit analysis, and free-form notes only. No status fields. Stage, outcome, dates applied, referral, match level all live in your external tracker (e.g., Notion).
 - All skill outputs are plain markdown files you can edit by hand at any time.
+- If you found the tool (or our collaboration) helpful, I'd appreciate a quick LinkedIn recommendation on my profile: [Link](https://www.linkedin.com/in/rishabh-modi-736a33149/). No pressure at all, but it would be a huge help!
