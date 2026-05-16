@@ -26,7 +26,7 @@ Identify:
 - Team/org context if mentioned
 
 ### 3. Fit assessment
-For each significant requirement, rate against my background (from `career/impact-doc.md`):
+For each significant requirement, rate against my background (from `$PERSONAL/career/impact-doc.md`). `$PERSONAL` is the personal-docs sibling directory defined in `CLAUDE.md`. Resolve it once at the start of the session and reuse.
 
 | Requirement | Rating | Justification |
 |---|---|---|
@@ -55,7 +55,7 @@ One of:
 ### 7. Save the role workspace
 After producing the analysis, persist it to disk so downstream skills (`resume-builder`, `interview-prep`) and future sessions can reference it.
 
-**Folder convention:** `applications/<company-slug>/<role-slug>/role.md`
+**Folder convention:** `$PERSONAL/applications/<company-slug>/<role-slug>/role.md`
 
 Slug rules:
 - Lowercase, kebab-case, ASCII-only.
@@ -95,7 +95,7 @@ tech_stack: [Ruby, Go, Kafka, Postgres]
 (empty placeholder for the user's ongoing free-form notes — questions, recruiter context, follow-ups)
 ```
 
-After writing, tell the user the path: `Saved to applications/stripe/staff-payments-infra/role.md`.
+After writing, tell the user the absolute path it landed at (resolved from `$PERSONAL`), e.g. `Saved to <absolute>/career-agent-personal-docs/applications/stripe/staff-payments-infra/role.md`.
 
 ## Output format
 Concise. Table for the requirements grid, prose for everything else. No filler. End with the verdict in bold so I can scan it. Mention the saved path on the last line.

@@ -14,12 +14,12 @@ For end-of-day logging, use `daily-summary` instead.
 A short briefing — three sections, ~10–15 lines total. **Read-only**: doesn't write any files, doesn't modify state.
 
 ### Section 1: Carrying over from yesterday
-Read the most recent file in `career/daily-log/` (sort by filename — they're ISO date-stamped). Extract the `## Next steps` section and present each item as a checkbox.
+Read the most recent file in `$PERSONAL/career/daily-log/` (sort by filename — they're ISO date-stamped). `$PERSONAL` is the personal-docs sibling directory defined in `CLAUDE.md`; resolve it once at the start of the session. Extract the `## Next steps` section and present each item as a checkbox.
 
 If no daily log exists yet, say so explicitly ("No prior daily log found") and skip this section.
 
 ### Section 2: Stale items (>7 days)
-Scan `applications/<company>/<role>/role.md` files. Flag any role where **all three** of these are true:
+Scan `$PERSONAL/applications/<company>/<role>/role.md` files. Flag any role where **all three** of these are true:
 - `date_added` in frontmatter is more than 7 days ago
 - No `resume.md` exists in the same folder
 - The `## Notes` section is empty or unchanged from initial creation
@@ -33,7 +33,7 @@ If nothing qualifies as stale, **omit this section entirely**.
 
 Include a rough effort estimate ("~45 min", "~1 hr") so the user can decide if there's time for it now.
 
-If the user has nothing pending (clean slate, no carryover, no stale items), suggest a fresh activity grounded in `career/goals.md`, e.g., "Start a Job Description analysis for a Tier 1 company you haven't explored yet."
+If the user has nothing pending (clean slate, no carryover, no stale items), suggest a fresh activity grounded in `$PERSONAL/career/goals.md`, e.g., "Start a Job Description analysis for a Tier 1 company you haven't explored yet."
 
 ## Output format
 
@@ -43,7 +43,7 @@ If the user has nothing pending (clean slate, no carryover, no stale items), sug
 - [ ] Practice 2 medium graph problems before Friday's Anthropic onsite
 
 ## Stale (>7 days)
-- applications/airbnb/staff-trust-safety/role.md — analyzed 2026-05-02, no follow-up
+- $PERSONAL/applications/airbnb/staff-trust-safety/role.md — analyzed 2026-05-02, no follow-up
 
 ## Suggested first move
 Stripe resume. You said yesterday it's blocking your apply. ~45 min.

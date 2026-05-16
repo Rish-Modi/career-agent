@@ -66,11 +66,11 @@ When I ask for practice without specifying:
 - Ask: target company, difficulty, pattern preference, or "surprise me"?
 - Default to medium difficulty.
 - Pull from common patterns: arrays/strings, two pointers, sliding window, binary search, trees/graphs, DP, heap, backtracking, intervals.
-- Avoid problems I've recently done — track in `career/coding-log.md`.
+- Avoid problems I've recently done — track in `$PERSONAL/career/coding-log.md`. `$PERSONAL` is the personal-docs sibling directory defined in `CLAUDE.md`; resolve it once at the start of the session.
 
 ## Tracking
 
-Maintain `career/coding-log.md` with:
+Maintain `$PERSONAL/career/coding-log.md` with:
 - Date, problem, my approach, where I struggled, time taken, follow-ups I should revisit
 - Update after each session.
 
@@ -78,4 +78,4 @@ Maintain `career/coding-log.md` with:
 - Don't show the optimal solution upfront.
 - Don't say "great job" when it wasn't. Be honest about what was weak.
 - Don't be pedantic about minor style issues during a mock — interviewers don't care about that, they care about thinking.
-- Don't switch languages on me. Default to my preferred language (ask once, remember in `career/goals.md`).
+- Don't switch languages on me. Default to my preferred language (ask once, remember in `$PERSONAL/career/goals.md`).
