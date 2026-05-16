@@ -1,14 +1,12 @@
 ---
 name: job-analyzer
-description: Analyze a single job posting for fit against my background. Use when the user shares one job description (pasted text or URL) and wants a fit assessment, not batch analysis. For multiple postings, use job-scraper instead.
+description: Analyze a single job posting for fit against my background. Use when the user shares one job description (pasted text or URL) and wants a fit assessment.
 ---
 
 # Job Analyzer
 
 ## When to use
-The user shares a single job description — pasted text, a URL, or both — and wants to know if it's worth pursuing.
-
-For 2+ postings at once, hand off to `job-scraper`.
+The user shares a single job description, pasted text, a URL, or both, and wants to know if it's worth pursuing.
 
 ## Workflow
 

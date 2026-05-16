@@ -1,12 +1,12 @@
 ---
 name: resume-builder
-description: Build, tailor, or revise a resume. Use when the user asks for a resume — either a general version or one tailored to a specific job posting or archetype profile. Produces Markdown, .docx, and .pdf outputs.
+description: Build, tailor, or revise a resume. Use when the user asks for a resume, either a general version or one tailored to a specific job posting. Produces Markdown, .docx, and .pdf outputs.
 ---
 
 # Resume Builder
 
 ## When to use
-Any request to build, tailor, revise, or critique a resume. Also invoked by `job-scraper` to produce per-cluster resume variants.
+Any request to build, tailor, revise, or critique a resume.
 
 ## Inputs
 - **Source material** — read all that exist before drafting. `$PERSONAL` is the personal-docs sibling directory defined in `CLAUDE.md`; resolve it once at the start of the session.
@@ -17,7 +17,6 @@ Any request to build, tailor, revise, or critique a resume. Also invoked by `job
   - `$PERSONAL/career/current-resume.md` — use as a baseline if it exists; otherwise build from scratch.
 - **Target** (one of):
   - A specific job description → tailor to it
-  - An archetype profile from `job-scraper` → tailor to the cluster
   - "General" → produce a strong default version
 - **Length preference**: default 1 page. Confirm if I want longer.
 
@@ -25,7 +24,7 @@ Any request to build, tailor, revise, or critique a resume. Also invoked by `job
 
 ### 1. Confirm target
 If the target isn't obvious from context, ask:
-- Specific Job Description, archetype profile, or general?
+- Specific Job Description, or general?
 - Length preference?
 - Any role/company I'm asking you to *deprioritize* (e.g., I don't want my AWS work to dominate)?
 
@@ -41,7 +40,7 @@ Every bullet must:
 If `$PERSONAL/career/impact-doc.md` is missing the numbers, surface that and ask me to fill them in rather than fabricating.
 
 ### 3. Tailor
-When a target Job Description or archetype is provided:
+When a target Job Description is provided:
 - Match the Job Description's keyword vocabulary where it's truthful (e.g., if they say "distributed systems," use that phrase if it applies to my work, don't keyword-stuff with terms I haven't used)
 - Reorder bullets so the most relevant come first within each role
 - Cut bullets that don't reinforce the target — even strong ones
