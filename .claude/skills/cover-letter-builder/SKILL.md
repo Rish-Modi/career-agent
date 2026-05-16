@@ -1,9 +1,9 @@
 ---
-name: cover-letter
+name: cover-letter-builder
 description: Generate a tailored cover letter for a specific job posting. Use when the user asks for a cover letter for a role. Produces Markdown and .docx outputs.
 ---
 
-# Cover Letter Generator
+# Cover Letter Builder
 
 ## When to use
 Any request to write or tailor a cover letter for a specific role. Requires a target Job Description or an existing `role.md` to ground the letter.

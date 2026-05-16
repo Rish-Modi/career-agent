@@ -16,13 +16,37 @@ Evening   →   "wrap up the day"                         log written to $PERSON
 
 This repo handles the **deep work**: Job Description analysis, tailored resumes, interview prep, per-role artifacts. Application *status* (stage, dates applied, outcomes, match level) is intentionally **not** stored here. Keep that in Notion or your tracker of choice. The two systems don't need to sync because they don't overlap.
 
+## How to use job-analyzer
+
+Use this when you want a grounded read on whether a single posting is worth pursuing. It compares the role against your impact doc and saves the Job Description plus the analysis to your private applications folder.
+
+1. Open the repo in Claude Code.
+2. Paste the Job Description text (or a URL, if it's a site Claude can fetch). One posting per request.
+3. Ask: *"Worth pursuing?"* or *"How do I fit?"*
+4. Claude returns: skills match, level alignment, gaps, comp signal, and a recommendation.
+5. The Job Description, the analysis, and any free-form notes get persisted to `$PERSONAL/applications/<company>/<role-slug>/role.md` so you can revisit later or feed it into `resume-builder` and `cover-letter-builder`.
+
+## How to use coding-prep
+
+TypeScript-first coding interview practice. The shared problem bank lives in this repo at `coding-bank/problems/`; your attempts and notes stay private in `$PERSONAL/career/coding-log/`.
+
+There are four entry points:
+
+1. **Add a problem to the bank.** Paste the problem name, description, difficulty, examples, constraints, and hints. Claude saves it to `coding-bank/problems/<slug>.md` so you (or anyone using the repo) can practice it later.
+2. **Practice an existing problem.** Say *"let's practice two-sum"* or *"surprise me from weak spots"*. Claude asks upfront whether you want **tutoring** (hint ladder + pattern teaching) or **evaluation only** (you solve on LeetCode, paste your code, Claude grades it). Each attempt is logged.
+3. **Run a mock interview.** Say *"mock me"*. Timed 45 minutes, no hints, follow-up variant after you solve, structured rubric grade at the end (hire / lean hire / lean no-hire / no-hire).
+4. **Ask what to redo.** Say *"what should I redo today?"* or *"what are my weak spots?"*. Claude reads your attempt log and surfaces failed or stale problems.
+
+All attempts append to `$PERSONAL/career/coding-log/attempts.jsonl` (queryable), with rolling per-problem notes in `$PERSONAL/career/coding-log/by-problem/<slug>.md`.
+
 ## What's ready to use
 
 | Skill | What it does | Trigger phrase |
 |---|---|---|
 | `job-analyzer` | Paste a Job Description, get a grounded fit analysis (skills match, level alignment, gaps, comp signal). Persists Job Description + analysis to `$PERSONAL/applications/<company>/<role>/role.md`. | *"Here's a Job Description: [paste]. Worth pursuing?"* |
 | `resume-builder` | Reshape your impact doc into a posting-specific resume in Markdown and `.docx`. | *"Build a resume for this Stripe staff role: [Job Description]"* |
-| `cover-letter` | Write a tailored cover letter grounded in your impact doc and the role's specific requirements. Saves `.md` and `.docx` alongside the resume. | *"Write a cover letter for the Stripe staff role"* |
+| `cover-letter-builder` | Write a tailored cover letter grounded in your impact doc and the role's specific requirements. Saves `.md` and `.docx` alongside the resume. | *"Write a cover letter for the Stripe staff role"* |
+| `coding-prep` | TypeScript coding interview practice. Add problems to the shared bank, then practice (tutoring or evaluation), run a timed mock, or query weak spots from your attempt log. | *"Let's practice two-sum"* / *"Mock me on a medium array problem"* |
 | `daily-summary` | EOD log of artifacts touched, open loops, patterns across the day, and concrete next steps. Writes to `$PERSONAL/career/daily-log/YYYY-MM-DD.md`. | *"Wrap up the day"* / *"EOD summary"* |
 | `morning` | AM briefing: yesterday's open items + stale roles (>7 days untouched) + one suggested first move. Read-only. | *"/morning"* / *"What's on my plate today?"* |
 
@@ -31,8 +55,6 @@ This repo handles the **deep work**: Job Description analysis, tailored resumes,
 | Skill | Status |
 |---|---|
 | `interview-prep` | STAR story bank and mock behavioral rounds. Coming soon. |
-| `coding-prep` | Socratic tutoring and mock technical rounds. Coming soon. |
-| `job-scraper` | Batch URL scraping, role clustering, and per-cluster resumes. Coming soon. |
 
 Every skill is grounded in your personal files under `$PERSONAL/career/`: your impact doc, goals, and brag doc. Fill those in once and the advice stops being generic.
 
@@ -54,15 +76,14 @@ All dependencies are Python packages. Install them once before first use.
 
 | Package | Used by | Install |
 |---|---|---|
-| `python-docx` | `resume-builder`, `cover-letter` (generates `.docx` output) | `pip install python-docx` |
+| `python-docx` | `resume-builder`, `cover-letter-builder` (generates `.docx` output) | `pip install python-docx` |
 | `reportlab` | `resume-builder` (generates `.pdf` output) | `pip install reportlab` |
-| `requests` | `job-scraper`, `job-analyzer` (fetches URLs) | `pip install requests` |
-| `beautifulsoup4` | `job-scraper` (parses scraped HTML) | `pip install beautifulsoup4` |
+| `requests` | `job-analyzer` (fetches URLs) | `pip install requests` |
 
 Install all at once:
 
 ```bash
-pip install python-docx reportlab requests beautifulsoup4
+pip install python-docx reportlab requests
 ```
 
 You also need [Claude Code](https://claude.ai/code) installed and authenticated.
@@ -98,15 +119,15 @@ career-agent/                              # this repo
     goals.template.md
     brag-doc.template.md
     personal-info.template.md
+  coding-bank/                             # shared coding problem library (committed)
+    README.md
+    problems/
+      <slug>.md                            # one file per problem, problem text only
   .claude/
     skills/                                # skill definitions
       job-analyzer/
-      job-scraper/
-        scrape.py
-        parse.py
-        output/<date>/                     # scraper run outputs
       resume-builder/
-      cover-letter/
+      cover-letter-builder/
       interview-prep/
       coding-prep/
       daily-summary/
@@ -123,7 +144,10 @@ career-agent-personal-docs/                # sibling of repo, NOT in git
     personal-info.md                       # your contact info
     current-resume.md                      # optional, create as needed
     story-bank.json                        # created by interview-prep
-    coding-log.md                          # created by coding-prep
+    coding-log/                            # created by coding-prep
+      attempts.jsonl                       # append-only log, one line per attempt
+      by-problem/
+        <slug>.md                          # rolling notes per problem, linked to coding-bank by slug
     daily-log/                             # created by daily-summary
       2026-05-11.md
   applications/                            # per-application work
@@ -131,14 +155,14 @@ career-agent-personal-docs/                # sibling of repo, NOT in git
       <role-slug>/
         role.md                            # Job Description + fit analysis + notes (from job-analyzer)
         resume.md / .docx                  # tailored resume (from resume-builder)
-        cover-letter.md / .docx            # tailored cover letter (from cover-letter)
+        cover-letter.md / .docx            # tailored cover letter (from cover-letter-builder)
         story-bank.json                    # tailored stories (from interview-prep)
         interviews/                        # per-round notes
 ```
 
 ## Notes
 
-- The scraper auto-fails on LinkedIn and Indeed (login/JS walls). When that happens, paste the Job Description text and the workflow continues.
+- `job-analyzer` will try to fetch a Job Description from a URL, but LinkedIn and Indeed block automated fetches behind login/JS walls. When that happens, paste the Job Description text and the workflow continues.
 - `role.md` files store the Job Description, fit analysis, and free-form notes only. No status fields. Stage, outcome, dates applied, referral, match level all live in your external tracker (e.g., Notion).
 - All skill outputs are plain markdown files you can edit by hand at any time.
 - Because personal data lives in a sibling directory (`../career-agent-personal-docs/`), it stays accessible from the main checkout and from any worktree without any symlink trickery. No per-worktree setup needed.

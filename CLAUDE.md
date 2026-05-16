@@ -30,11 +30,10 @@ If `$PERSONAL` does not exist, tell me. Do not create it silently from inside a 
 ## Available Skills
 
 - `job-analyzer`: Analyze a single job posting for fit. Persists analysis to `$PERSONAL/applications/<company>/<role>/role.md`.
-- `job-scraper`: Batch-scrape multiple posting URLs, cluster them by archetype, generate a tailored resume per cluster.
 - `resume-builder`: Build or tailor a resume (Markdown, .docx, .pdf).
-- `cover-letter`: Write a tailored cover letter for a specific role (Markdown, .docx).
+- `cover-letter-builder`: Write a tailored cover letter for a specific role (Markdown, .docx).
 - `interview-prep`: Behavioral prep, STAR stories, mock interviews.
-- `coding-prep`: Coding interview practice and tutoring.
+- `coding-prep`: Coding interview practice in TypeScript. Add problems to the shared bank under `coding-bank/problems/`, then practice (tutoring or evaluation) or run a timed mock. Personal attempt log lives in `$PERSONAL/career/coding-log/`.
 - `daily-summary`: End-of-day log of what I did, open loops, and next steps. Writes to `$PERSONAL/career/daily-log/YYYY-MM-DD.md`.
 - `morning`: AM briefing on yesterday's open items, stale roles (>7 days), and one suggested first move. Read-only.
 
@@ -49,6 +48,10 @@ career-agent/                                  # this repo (committed)
     goals.template.md
     brag-doc.template.md
     personal-info.template.md
+  coding-bank/                                 # shared problem library, committed
+    README.md                                  # schema, slug rules, tag vocabulary, copyright note
+    problems/
+      <slug>.md                                # one file per problem, problem text only
   .claude/
     skills/                                    # skill definitions
     settings.local.json                        # personal permissions (gitignored)
@@ -63,7 +66,10 @@ career-agent-personal-docs/                    # sibling of repo, NOT in git
     personal-info.md
     current-resume.md
     story-bank.json                            # created by interview-prep
-    coding-log.md                              # created by coding-prep
+    coding-log/                                # created by coding-prep
+      attempts.jsonl                           # append-only, one line per attempt (queryable)
+      by-problem/
+        <slug>.md                              # rolling notes per problem, linked to coding-bank by slug
     daily-log/
       YYYY-MM-DD.md                            # created by daily-summary
   applications/
