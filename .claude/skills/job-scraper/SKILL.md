@@ -19,10 +19,11 @@ For a single posting, use `job-analyzer`.
 Accept URLs as a list, a file, or pasted text. Confirm the full list back to the user before scraping — typos or wrong tabs are common.
 
 ### 2. Set up the run directory
+Resolve `$PERSONAL` first (see `CLAUDE.md`), then:
 ```bash
-mkdir -p .claude/skills/job-scraper/output/<YYYY-MM-DD>/{raw,resumes}
+mkdir -p "$PERSONAL/scraper-runs/<YYYY-MM-DD>/"{raw,resumes}
 ```
-Use today's date. If a directory for today already exists, append `-2`, `-3`, etc.
+Use today's date. If a directory for today already exists, append `-2`, `-3`, etc. `<run_dir>` in the rest of this skill refers to that resolved path.
 
 ### 3. Scrape
 Run:
@@ -88,7 +89,7 @@ Write `<run_dir>/buckets.md` with:
 For each bucket, append to `buckets.md`:
 - Top 10 most common keywords/skills across the bucket's postings (count + which postings)
 - Common scope and impact signals
-- Map to my background (from `career/impact-doc.md`):
+- Map to my background (from `$PERSONAL/career/impact-doc.md`, where `$PERSONAL` is the personal-docs sibling directory defined in `CLAUDE.md`):
   - **Strengths** for this archetype
   - **Gaps**
   - **Stretch areas** (have adjacent experience but not direct)
@@ -102,6 +103,7 @@ For each bucket, invoke the `resume-builder` skill with the bucket's analysis as
   resume.docx
   resume.pdf
 ```
+(`<run_dir>` is the `$PERSONAL/scraper-runs/<YYYY-MM-DD>/` path created in step 2.)
 
 ### 8. Final summary
 End the run with:

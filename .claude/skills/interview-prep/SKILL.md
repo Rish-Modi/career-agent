@@ -20,7 +20,7 @@ For coding interviews, use `coding-prep`.
 **Goal:** turn my career experiences into a flexible library of STAR stories.
 
 Workflow:
-1. Read `career/impact-doc.md` and `career/story-bank.json` if it exists.
+1. Read `$PERSONAL/career/impact-doc.md` and `$PERSONAL/career/story-bank.json` if it exists. `$PERSONAL` is the personal-docs sibling directory defined in `CLAUDE.md`; resolve it once at the start of the session.
 2. Propose 8–12 story candidates covering these competencies:
    - Leadership / influence without authority
    - Conflict (peer, manager, cross-team)
@@ -38,7 +38,7 @@ Workflow:
    - **Action** (what I did — first person, specific, decision-driven)
    - **Result** (quantified outcome + what I learned)
 4. Tag each story with the competencies it maps to. Good stories cover 3+ competencies.
-5. Save to `career/story-bank.json` as a structured file so we can extend it over time.
+5. Save to `$PERSONAL/career/story-bank.json` as a structured file so we can extend it over time.
 
 Push back when a story is weak: "Action" too vague, "Result" missing numbers, or the story is really about the team rather than me.
 
@@ -74,9 +74,9 @@ When I name a company and an upcoming interview:
 Don't dump search results — synthesize. End with a one-page brief.
 
 ## Output discipline
-- Story bank goes in `career/story-bank.json`, structured.
-- Mock interview transcripts and feedback go in `applications/<company>-<role>/interview-prep/`.
-- Company research goes in `applications/<company>-<role>/brief.md`.
+- Story bank goes in `$PERSONAL/career/story-bank.json`, structured.
+- Mock interview transcripts and feedback go in `$PERSONAL/applications/<company>/<role>/interview-prep/`.
+- Company research goes in `$PERSONAL/applications/<company>/<role>/brief.md`.
 
 ## Anti-patterns
 - Don't write stories *for* me in first person without confirming the details. Draft, mark assumptions, ask me to verify.

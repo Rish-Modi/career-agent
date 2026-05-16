@@ -9,13 +9,13 @@ description: Generate a tailored cover letter for a specific job posting. Use wh
 Any request to write or tailor a cover letter for a specific role. Requires a target Job Description or an existing `role.md` to ground the letter.
 
 ## Inputs
-- **Source material** — read all that exist before drafting:
-  - `career/impact-doc.md` — always. Primary source of truth for roles, projects, and metrics.
-  - `career/brag-doc.md` — read if it exists. Contains quantified wins and recognition that may not appear in the impact doc. Cross-check metrics here; the brag doc often has stronger or more specific numbers.
-  - `career/goals.md` — read if it exists. Use to understand what the user is optimizing for and how to frame the letter's angle.
-  - `career/personal-info.md` — read if it exists. Use for the closing signature block: name, email, phone, LinkedIn. Omit GitHub unless specifically requested. If the file does not exist, use placeholders and note them.
+- **Source material** — read all that exist before drafting. `$PERSONAL` is the personal-docs sibling directory defined in `CLAUDE.md`; resolve it once at the start of the session.
+  - `$PERSONAL/career/impact-doc.md` — always. Primary source of truth for roles, projects, and metrics.
+  - `$PERSONAL/career/brag-doc.md` — read if it exists. Contains quantified wins and recognition that may not appear in the impact doc. Cross-check metrics here; the brag doc often has stronger or more specific numbers.
+  - `$PERSONAL/career/goals.md` — read if it exists. Use to understand what the user is optimizing for and how to frame the letter's angle.
+  - `$PERSONAL/career/personal-info.md` — read if it exists. Use for the closing signature block: name, email, phone, LinkedIn. Omit GitHub unless specifically requested. If the file does not exist, use placeholders and note them.
 - **Role context** (one of, in priority order):
-  - Existing `applications/<company>/<role-slug>/role.md` — use the fit analysis and Job Description already on disk
+  - Existing `$PERSONAL/applications/<company>/<role-slug>/role.md` — use the fit analysis and Job Description already on disk
   - A pasted Job Description or URL — fetch and parse it fresh
 - **Optional user direction**: specific angle to lead with, a talking point to include, or a point to omit.
 - **Length**: default 3-4 short paragraphs, ~250-350 words. Confirm if I want longer.
@@ -23,12 +23,12 @@ Any request to write or tailor a cover letter for a specific role. Requires a ta
 ## Workflow
 
 ### 1. Get the Job Description and fit context
-Check whether `applications/<company>/<role-slug>/role.md` exists. If it does, read it for the full Job Description and the fit analysis. If not, fetch or request the Job Description and run a quick mental fit pass before writing.
+Check whether `$PERSONAL/applications/<company>/<role-slug>/role.md` exists. If it does, read it for the full Job Description and the fit analysis. If not, fetch or request the Job Description and run a quick mental fit pass before writing.
 
 If neither exists and no Job Description was provided, ask for one before proceeding.
 
 ### 2. Identify 2-3 strongest fit signals
-From `impact-doc.md`, find the 2-3 experiences that most directly address the role's core responsibilities. These become the backbone of the letter's body. Do not try to cover everything.
+From `$PERSONAL/career/impact-doc.md`, find the 2-3 experiences that most directly address the role's core responsibilities. These become the backbone of the letter's body. Do not try to cover everything.
 
 Prefer signals that:
 - Are quantified
@@ -58,7 +58,7 @@ Before finalizing, check every paragraph:
 - Is there any filler ("I am passionate about," "I thrive in fast-paced environments")? Delete it.
 
 ### 6. Produce outputs
-Save to `applications/<company>/<role-slug>/`:
+Save to `$PERSONAL/applications/<company>/<role-slug>/`:
 - `cover-letter.md` — clean Markdown, source of truth
 - `cover-letter.docx` — using the docx skill, matching the resume's formatting style (same font, margins)
 
@@ -70,7 +70,7 @@ If the application folder does not exist yet, create it. Tell the user the saved
 - **Cancel** — print to terminal only, write nothing.
 
 ### 7. Summarize
-End with 2-3 sentences: what angle the letter leads with, what it deprioritizes, and anything from `impact-doc.md` that is underspecified and would strengthen a future draft (without fabricating).
+End with 2-3 sentences: what angle the letter leads with, what it deprioritizes, and anything from `$PERSONAL/career/impact-doc.md` that is underspecified and would strengthen a future draft (without fabricating).
 
 ## Anti-patterns
 - Never open with "I am writing to apply for..." or any variant. Find a hook.

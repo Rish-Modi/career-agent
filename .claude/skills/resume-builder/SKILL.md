@@ -9,12 +9,12 @@ description: Build, tailor, or revise a resume. Use when the user asks for a res
 Any request to build, tailor, revise, or critique a resume. Also invoked by `job-scraper` to produce per-cluster resume variants.
 
 ## Inputs
-- **Source material** — read all that exist before drafting:
-  - `career/impact-doc.md` — always. Primary source of truth for roles, projects, and metrics.
-  - `career/brag-doc.md` — read if it exists. Contains quantified wins and recognition not always captured in the impact doc. Cross-check metrics here before finalizing any bullet.
-  - `career/goals.md` — read if it exists. Use to understand target role type, level, and what to emphasize or deprioritize.
-  - `career/personal-info.md` — read if it exists. Use for the resume header: name, email, phone, location, LinkedIn, GitHub. If the file does not exist, use placeholders and note them explicitly so the user can fill them in.
-  - `career/current-resume.md` — use as a baseline if it exists; otherwise build from scratch.
+- **Source material** — read all that exist before drafting. `$PERSONAL` is the personal-docs sibling directory defined in `CLAUDE.md`; resolve it once at the start of the session.
+  - `$PERSONAL/career/impact-doc.md` — always. Primary source of truth for roles, projects, and metrics.
+  - `$PERSONAL/career/brag-doc.md` — read if it exists. Contains quantified wins and recognition not always captured in the impact doc. Cross-check metrics here before finalizing any bullet.
+  - `$PERSONAL/career/goals.md` — read if it exists. Use to understand target role type, level, and what to emphasize or deprioritize.
+  - `$PERSONAL/career/personal-info.md` — read if it exists. Use for the resume header: name, email, phone, location, LinkedIn, GitHub. If the file does not exist, use placeholders and note them explicitly so the user can fill them in.
+  - `$PERSONAL/career/current-resume.md` — use as a baseline if it exists; otherwise build from scratch.
 - **Target** (one of):
   - A specific job description → tailor to it
   - An archetype profile from `job-scraper` → tailor to the cluster
@@ -38,7 +38,7 @@ Every bullet must:
 - Include scope (team size, system scale, dollar impact, user count, request volume — whatever applies)
 - Include a quantified outcome where possible
 
-If `impact-doc.md` is missing the numbers, surface that and ask me to fill them in rather than fabricating.
+If `$PERSONAL/career/impact-doc.md` is missing the numbers, surface that and ask me to fill them in rather than fabricating.
 
 ### 3. Tailor
 When a target Job Description or archetype is provided:
@@ -57,7 +57,7 @@ Before finalizing, evaluate every bullet:
 Flag weak bullets explicitly with proposed alternatives.
 
 ### 5. Produce outputs
-Create three formats in `applications/<company>-<role>/` (or `career/resumes/<variant>/` for general versions):
+Create three formats in `$PERSONAL/applications/<company>/<role>/` (or `$PERSONAL/career/resumes/<variant>/` for general versions):
 - `resume.md` — clean Markdown, the source of truth
 - `resume.docx` — using the docx skill
 - `resume.pdf` — using the pdf skill
@@ -68,7 +68,7 @@ For the .docx and .pdf, use a clean professional template — single column, san
 End with a short summary of:
 - What you emphasized and why
 - What you cut and why
-- Anything you flagged as weak that I should improve at the source (in `impact-doc.md` or `brag-doc.md`)
+- Anything you flagged as weak that I should improve at the source (in `$PERSONAL/career/impact-doc.md` or `$PERSONAL/career/brag-doc.md`)
 
 ## Anti-patterns
 - Don't invent metrics. If the number isn't in my files, ask.

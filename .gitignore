@@ -8,20 +8,3 @@ output/
 
 # Local Claude Code settings
 .claude/settings.local.json
-
-# Personal career files (copy from career/*.template.md to get started)
-career/impact-doc.md
-career/goals.md
-career/brag-doc.md
-career/current-resume.md
-career/personal-info.md
-career/story-bank.json
-career/coding-log.md
-career/daily-log/
-career/rish-career.md
-career/source/
-career/resumes/
-
-# Per-application working folders (all personal)
-applications/*
-!applications/.gitkeep
