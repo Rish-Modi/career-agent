@@ -90,7 +90,7 @@ career-agent-personal-docs/                    # sibling of repo, NOT in git
 
 - The `.template.md` files in the repo are the seed. To bootstrap personal docs, copy them into `$PERSONAL/career/` and fill in your real content. Edit those copies freely as I share more about my background.
 - Per-application work goes in `$PERSONAL/applications/<company>/<role-slug>/`. Slugs are lowercase, kebab-case, short.
-- `role.md` files store the Job Description, fit analysis, and free-form notes only. No application status fields (stage, outcome, dates applied, referral, match level). Those live in my external tracker (Notion). Don't add them.
+- `role.md` files store the Job Description, fit analysis, and free-form notes. Tracking fields (stage, outcome, date_applied, referral, match_level) are optional in the frontmatter: write them only when I mention them inline (e.g., "I applied today", "Alice referred me", "recruiter call scheduled"). Never prompt for them, never invent values. Notion remains the system of record.
 - Skill outputs (scraped postings, generated resumes, daily logs) go where the skill specifies, always under `$PERSONAL/`.
 
 ## Formatting

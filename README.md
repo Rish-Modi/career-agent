@@ -125,7 +125,7 @@ Full file layout, including which skill writes what, is in [CLAUDE.md](CLAUDE.md
 ## Notes
 
 - `job-analyzer` will try to fetch a Job Description from a URL, but LinkedIn and Indeed block automated fetches behind login/JS walls. When that happens, paste the Job Description text and the workflow continues.
-- `role.md` files store the Job Description, fit analysis, and free-form notes only. No status fields. Stage, outcome, dates applied, referral, match level all live in your external tracker (e.g., Notion).
+- `role.md` files store the Job Description, fit analysis, and free-form notes. Tracking fields (stage, outcome, date_applied, referral, match_level) are optional: Claude will mirror them in the frontmatter if you mention them inline ("I applied today", "Alice referred me"), but won't prompt or invent. Your external tracker (e.g., Notion) remains the system of record.
 - All skill outputs are plain markdown files you can edit by hand at any time.
 - Because personal data lives in a sibling directory, it stays accessible from the main checkout and from any worktree with no symlink setup.
 
