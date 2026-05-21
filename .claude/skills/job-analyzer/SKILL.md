@@ -66,7 +66,9 @@ Slug rules:
 - **Append** — add a new `## Fit analysis (re-run on YYYY-MM-DD)` section below the existing one. Default for re-runs after updating `impact-doc.md` or `goals.md`. Preserves history.
 - **Cancel** — print the analysis to the terminal only, write nothing.
 
-Tracking state (stage, outcome, dates applied, referral, match level) is **not** stored here — that lives in the user's external tracker. `role.md` is a working artifact for the role's content and analysis only.
+Tracking state (stage, outcome, date applied, referral, match level) is **optional**. `role.md` may mirror these fields when the user provides them inline, but never prompt for them and never invent values. Only write a tracking field when the user has explicitly said something that fills it (e.g., "I applied today" → set `date_applied`; "recruiter call scheduled" → set `stage: recruiter-screen`; "Alice referred me" → set `referral: Alice Smith`). Otherwise omit the field entirely.
+
+The match_level field is the only exception: when first creating `role.md` from a fit analysis, derive it from the verdict (`great-fit` / `stretch` / `poor-fit`). The user can edit or remove it later.
 
 **Schema (single file, YAML frontmatter + body):**
 
@@ -79,8 +81,16 @@ work_mode: hybrid                    # remote | hybrid | onsite | unknown
 job_id: 6173829                      # if available, else null
 link: https://stripe.com/jobs/...    # canonical posting URL
 date_added: 2026-05-11               # today's date when first created
-comp_range: $280k–$380k TC           # if stated in Job Description, else null
+comp_range: $280k-$380k TC           # if stated in Job Description, else null
 tech_stack: [Ruby, Go, Kafka, Postgres]
+
+# Optional tracking fields. Omit any the user has not provided.
+# Only mirror what the user mentions inline; never prompt, never invent.
+match_level: great-fit               # great-fit | stretch | poor-fit (derived from verdict on creation)
+stage:                               # applied | recruiter-screen | hm-call | tech-screen | onsite | offer | accepted | declined | rejected | withdrawn | closed
+outcome:                             # active | accepted | declined | rejected | withdrawn | closed
+date_applied:                        # ISO date, only if user has said they applied
+referral:                            # name of person who referred, if any
 ---
 
 ## Fit analysis
@@ -102,5 +112,5 @@ Concise. Table for the requirements grid, prose for everything else. No filler. 
 - Don't soften the verdict to be encouraging. If it's a poor fit, say so.
 - Don't pad with generic interview tips — that's `interview-prep`'s job.
 - Don't generate a resume here — that's `resume-builder`'s job. You can note "this would benefit from a tailored resume emphasizing X" and stop.
-- Don't write status fields (stage, outcome, match level, referral, date_applied) into the frontmatter — those live in the user's external tracker, not here.
+- Don't prompt for or invent tracking fields (stage, outcome, date_applied, referral). Only write them when the user has said something inline that fills them.
 - Don't auto-overwrite an existing `role.md` without prompting.

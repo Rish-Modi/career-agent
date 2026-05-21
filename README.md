@@ -1,6 +1,6 @@
 # Career Agent
 
-A Claude Code project that turns job searching into a structured workflow. Your career history, goals, target companies, and active applications all live in one place so Claude can reason across them. No more juggling Google Docs, Notion, and a dozen open Job Descriptions.
+A Claude Code project that turns job searching into a structured workflow. Your career history, goals, target companies, and active applications all live in one place so Claude can reason across them. No more juggling scattered docs and a dozen open Job Descriptions.
 
 ## A typical day
 
@@ -14,53 +14,51 @@ Daytime   →   paste a Job Description, build a          per-role artifacts app
 Evening   →   "wrap up the day"                         log written to $PERSONAL/career/daily-log/YYYY-MM-DD.md
 ```
 
-This repo handles the **deep work**: Job Description analysis, tailored resumes, interview prep, per-role artifacts. Application *status* (stage, dates applied, outcomes, match level) is intentionally **not** stored here. Keep that in Notion or your tracker of choice. The two systems don't need to sync because they don't overlap.
+This repo handles the **deep work**: Job Description analysis, tailored resumes, interview prep, per-role artifacts. Lightweight tracking fields (stage, outcome, date applied, referral, match level) are supported optionally on each `role.md` and only written when you mention them inline. The repo isn't an application tracker; manage your pipeline however you prefer.
 
-## How to use job-analyzer
-
-Use this when you want a grounded read on whether a single posting is worth pursuing. It compares the role against your impact doc and saves the Job Description plus the analysis to your private applications folder.
-
-1. Open the repo in Claude Code.
-2. Paste the Job Description text (or a URL, if it's a site Claude can fetch). One posting per request.
-3. Ask: *"Worth pursuing?"* or *"How do I fit?"*
-4. Claude returns: skills match, level alignment, gaps, comp signal, and a recommendation.
-5. The Job Description, the analysis, and any free-form notes get persisted to `$PERSONAL/applications/<company>/<role-slug>/role.md` so you can revisit later or feed it into `resume-builder` and `cover-letter-builder`.
-
-## How to use coding-prep
-
-TypeScript-first coding interview practice. The shared problem bank lives in this repo at `coding-bank/problems/`; your attempts and notes stay private in `$PERSONAL/career/coding-log/`.
-
-There are four entry points:
-
-1. **Add a problem to the bank.** Paste the problem name, description, difficulty, examples, constraints, and hints. Claude saves it to `coding-bank/problems/<slug>.md` so you (or anyone using the repo) can practice it later.
-2. **Practice an existing problem.** Say *"let's practice two-sum"* or *"surprise me from weak spots"*. Claude asks upfront whether you want **tutoring** (hint ladder + pattern teaching) or **evaluation only** (you solve on LeetCode, paste your code, Claude grades it). Each attempt is logged.
-3. **Run a mock interview.** Say *"mock me"*. Timed 45 minutes, no hints, follow-up variant after you solve, structured rubric grade at the end (hire / lean hire / lean no-hire / no-hire).
-4. **Ask what to redo.** Say *"what should I redo today?"* or *"what are my weak spots?"*. Claude reads your attempt log and surfaces failed or stale problems.
-
-All attempts append to `$PERSONAL/career/coding-log/attempts.jsonl` (queryable), with rolling per-problem notes in `$PERSONAL/career/coding-log/by-problem/<slug>.md`.
-
-## What's ready to use
+## The toolbox
 
 | Skill | What it does | Trigger phrase |
 |---|---|---|
-| `job-analyzer` | Paste a Job Description, get a grounded fit analysis (skills match, level alignment, gaps, comp signal). Persists Job Description + analysis to `$PERSONAL/applications/<company>/<role>/role.md`. | *"Here's a Job Description: [paste]. Worth pursuing?"* |
-| `resume-builder` | Reshape your impact doc into a posting-specific resume in Markdown and `.docx`. | *"Build a resume for this Stripe staff role: [Job Description]"* |
-| `cover-letter-builder` | Write a tailored cover letter grounded in your impact doc and the role's specific requirements. Saves `.md` and `.docx` alongside the resume. | *"Write a cover letter for the Stripe staff role"* |
-| `coding-prep` | TypeScript coding interview practice. Add problems to the shared bank, then practice (tutoring or evaluation), run a timed mock, or query weak spots from your attempt log. | *"Let's practice two-sum"* / *"Mock me on a medium array problem"* |
-| `daily-summary` | EOD log of artifacts touched, open loops, patterns across the day, and concrete next steps. Writes to `$PERSONAL/career/daily-log/YYYY-MM-DD.md`. | *"Wrap up the day"* / *"EOD summary"* |
-| `morning` | AM briefing: yesterday's open items + stale roles (>7 days untouched) + one suggested first move. Read-only. | *"/morning"* / *"What's on my plate today?"* |
+| `job-analyzer` | Paste a Job Description, get a grounded fit analysis. Persists Job Description + analysis to `$PERSONAL/applications/<company>/<role>/role.md`. | *"Here's a Job Description: [paste]. Worth pursuing?"* |
+| `resume-builder` | Reshape your impact doc into a posting-specific resume in Markdown, `.docx`, and `.pdf`. | *"Build a resume for this Stripe staff role"* |
+| `cover-letter-builder` | Tailored cover letter grounded in your impact doc and the role's requirements. Outputs `.md` and `.docx`. | *"Write a cover letter for the Stripe staff role"* |
+| `coding-prep` | TypeScript coding interview practice. Shared problem bank, private attempt log, tutoring or evaluation mode, timed mocks. | *"Let's practice two-sum"* / *"Mock me on a medium array problem"* |
+| `star-stories` | Convert your projects into STAR-format Markdown files (one per project, multiple angles per file). Raw material for behavioral interviews. | *"STARify my resume"* / *"STARify [project name]"* |
+| `interview-prep` | Behavioral coverage audit, mock interviews, company briefs, and round-specific cheat-sheets. Pulls from your STAR files. | *"Build a cheat-sheet for the Pinecone HM call"* / *"Mock me on a behavioral round"* |
+| `daily-summary` | EOD log of artifacts touched, open loops, patterns, and next steps. | *"Wrap up the day"* / *"EOD summary"* |
+| `morning` | AM briefing: yesterday's open items + stale roles (>7 days untouched) + one suggested first move. | *"/morning"* / *"What's on my plate today?"* |
 
-## In progress
+Every skill is grounded in your personal files under `$PERSONAL/career/`. Fill those in once and the advice stops being generic.
 
-| Skill | Status |
-|---|---|
-| `interview-prep` | STAR story bank and mock behavioral rounds. Coming soon. |
+## Quick start
 
-Every skill is grounded in your personal files under `$PERSONAL/career/`: your impact doc, goals, and brag doc. Fill those in once and the advice stops being generic.
+```bash
+# 1. Clone and enter the repo
+git clone <repo-url> career-agent && cd career-agent
+
+# 2. Bootstrap your private data directory (sibling of the repo)
+PERSONAL="$(dirname "$(pwd)")/career-agent-personal-docs"
+mkdir -p "$PERSONAL/career" "$PERSONAL/applications"
+cp career/impact-doc.template.md    "$PERSONAL/career/impact-doc.md"
+cp career/goals.template.md         "$PERSONAL/career/goals.md"
+cp career/brag-doc.template.md      "$PERSONAL/career/brag-doc.md"
+cp career/personal-info.template.md "$PERSONAL/career/personal-info.md"
+
+# 3. Install the Python deps
+pip install python-docx reportlab requests
+
+# 4. Open in Claude Code
+claude
+```
+
+Then fill in your real content in `$PERSONAL/career/impact-doc.md` (most important), plus `goals.md`, `brag-doc.md`, and `personal-info.md`.
+
+You also need [Claude Code](https://claude.ai/code) installed and authenticated.
 
 ## Where your personal data lives
 
-Your private career data is stored **outside this repo** in a sibling directory called `career-agent-personal-docs/`. The repo itself only carries code, templates, and instructions, never personal content.
+Your private career data is stored **outside this repo** in a sibling directory called `career-agent-personal-docs/`. The repo carries only code, templates, and instructions, never personal content.
 
 ```
 Coding/
@@ -70,100 +68,67 @@ Coding/
 
 Throughout the skills and `CLAUDE.md`, `$PERSONAL` refers to the absolute path of that sibling directory. Skills resolve it dynamically from the git root, so it works from the main checkout and from any worktree without hard-coding.
 
-## Dependencies
+## How to use job-analyzer
 
-All dependencies are Python packages. Install them once before first use.
+Use this when you want a grounded read on whether a single posting is worth pursuing.
 
-| Package | Used by | Install |
-|---|---|---|
-| `python-docx` | `resume-builder`, `cover-letter-builder` (generates `.docx` output) | `pip install python-docx` |
-| `reportlab` | `resume-builder` (generates `.pdf` output) | `pip install reportlab` |
-| `requests` | `job-analyzer` (fetches URLs) | `pip install requests` |
+1. Paste the Job Description text (or a URL, if it's a site Claude can fetch). One posting per request.
+2. Ask: *"Worth pursuing?"* or *"How do I fit?"*
+3. Claude returns: skills match, level alignment, gaps, comp signal, and a recommendation.
+4. The Job Description, analysis, and any free-form notes get persisted to `$PERSONAL/applications/<company>/<role-slug>/role.md`.
 
-Install all at once:
+Feeds directly into `resume-builder` and `cover-letter-builder`.
 
-```bash
-pip install python-docx reportlab requests
-```
+## How to use coding-prep
 
-You also need [Claude Code](https://claude.ai/code) installed and authenticated.
+TypeScript-first coding interview practice. Shared problem bank in `coding-bank/problems/`; private attempts in `$PERSONAL/career/coding-log/`.
 
-## Setup
+1. **Add a problem.** Paste the problem details. Claude saves to `coding-bank/problems/<slug>.md`.
+2. **Practice.** *"Let's practice two-sum"* or *"surprise me from weak spots"*. Choose **tutoring** (hint ladder) or **evaluation only** (you solve, Claude grades).
+3. **Mock me.** Timed 45 min, no hints, follow-up variant, hire/no-hire grade at the end.
+4. **Query weak spots.** *"What should I redo today?"* — Claude reads your attempt log and surfaces failed or stale problems.
 
-1. Clone the repo and `cd` into it.
-2. Create the sibling directory for personal data and bootstrap it from the templates:
-   ```bash
-   PERSONAL="$(dirname "$(pwd)")/career-agent-personal-docs"
-   mkdir -p "$PERSONAL/career" "$PERSONAL/applications"
-   cp career/impact-doc.template.md    "$PERSONAL/career/impact-doc.md"
-   cp career/goals.template.md         "$PERSONAL/career/goals.md"
-   cp career/brag-doc.template.md      "$PERSONAL/career/brag-doc.md"
-   cp career/personal-info.template.md "$PERSONAL/career/personal-info.md"
-   ```
-3. Install dependencies (see above).
-4. Open the repo in Claude Code: `claude` from inside the directory.
-5. Fill in your real content in:
-   - `$PERSONAL/career/personal-info.md`: name, email, phone, location, LinkedIn (used in every resume and cover letter header)
-   - `$PERSONAL/career/impact-doc.md`: your detailed work history (most important)
-   - `$PERSONAL/career/goals.md`: what you're targeting
-   - `$PERSONAL/career/brag-doc.md`: raw material for resumes and stories
+Attempts append to `$PERSONAL/career/coding-log/attempts.jsonl`, with per-problem notes in `by-problem/<slug>.md`.
 
-Because `career-agent-personal-docs/` sits outside the repo, your personal data is never tracked by git. The repo only ships the `.template.md` skeletons.
+## How to use interview-prep
+
+Behavioral interview workflow. Pairs with `star-stories`: STAR files in `$PERSONAL/career/star/` are the source material, interview-prep is the consumer.
+
+**Prerequisite:** at least a few STAR files in `$PERSONAL/career/star/`. Build them with *"STARify my resume"* (full portfolio) or *"STARify [project name]"* (single project).
+
+Four modes, triggered by what you say:
+
+1. **Coverage audit.** *"Where are my story gaps?"* — Read-only. Reports which behavioral competencies (leadership, ambiguity, failure, conflict, etc.) have strong / thin / no coverage. Suggests which projects to STARify next.
+2. **Mock interview.** *"Mock me on a Pinecone behavioral round"* — Strict or coaching mode, one question at a time, evaluates structure/specificity/ownership/outcome, ends with a "stories to rehearse" list pointing at specific STAR files and angles. Transcript saved to `$PERSONAL/applications/<company>/<role>/interview-prep/`.
+3. **Company brief.** *"Research Pinecone before tomorrow's call"* — Synthesized one-page brief on the company plus recommended stories mapped to the round structure. Saved to `$PERSONAL/applications/<company>/<role>/brief.md`.
+4. **Cheat-sheet.** *"Build a cheat-sheet for the Pinecone HM call"* — Round-specific prep doc (opening pitch, lead stories with file links, predicted question table, gap framing, questions to ask, listen-fors). Templates differ for recruiter / HM / tech-screen / system-design / onsite-behavioral / cross-team-collab. Saved to `$PERSONAL/applications/<company>/<role>/<round>-cheat-sheet.md`.
+
+interview-prep does *not* create new STAR files. If it needs a story you don't have, it tells you to run `/star-stories <project>` and resume.
 
 ## File layout
 
 ```
 career-agent/                              # this repo
-  career/                                  # templates only (committed)
-    impact-doc.template.md
-    goals.template.md
-    brag-doc.template.md
-    personal-info.template.md
-  coding-bank/                             # shared coding problem library (committed)
-    README.md
-    problems/
-      <slug>.md                            # one file per problem, problem text only
-  .claude/
-    skills/                                # skill definitions
-      job-analyzer/
-      resume-builder/
-      cover-letter-builder/
-      interview-prep/
-      coding-prep/
-      daily-summary/
-      morning/
-    settings.local.json                    # personal permissions (gitignored)
-  CLAUDE.md                                # project-level instructions to Claude
+  career/                                  # personal-doc templates
+  coding-bank/problems/                    # shared coding library
+  .claude/skills/                          # skill definitions
+  CLAUDE.md                                # full project instructions
   README.md
 
 career-agent-personal-docs/                # sibling of repo, NOT in git
-  career/
-    impact-doc.md                          # your version (created from template)
-    goals.md
-    brag-doc.md
-    personal-info.md                       # your contact info
-    current-resume.md                      # optional, create as needed
-    story-bank.json                        # created by interview-prep
-    coding-log/                            # created by coding-prep
-      attempts.jsonl                       # append-only log, one line per attempt
-      by-problem/
-        <slug>.md                          # rolling notes per problem, linked to coding-bank by slug
-    daily-log/                             # created by daily-summary
-      2026-05-11.md
-  applications/                            # per-application work
-    <company>/
-      <role-slug>/
-        role.md                            # Job Description + fit analysis + notes (from job-analyzer)
-        resume.md / .docx                  # tailored resume (from resume-builder)
-        cover-letter.md / .docx            # tailored cover letter (from cover-letter-builder)
-        story-bank.json                    # tailored stories (from interview-prep)
-        interviews/                        # per-round notes
+  career/                                  # impact doc, goals, brag doc, STAR files, daily logs, coding log
+  applications/<company>/<role-slug>/      # per-role artifacts: role.md, resume, cover letter, cheat-sheets, briefs, interview notes
 ```
+
+Full file layout, including which skill writes what, is in [CLAUDE.md](CLAUDE.md).
 
 ## Notes
 
 - `job-analyzer` will try to fetch a Job Description from a URL, but LinkedIn and Indeed block automated fetches behind login/JS walls. When that happens, paste the Job Description text and the workflow continues.
-- `role.md` files store the Job Description, fit analysis, and free-form notes only. No status fields. Stage, outcome, dates applied, referral, match level all live in your external tracker (e.g., Notion).
+- `role.md` files store the Job Description, fit analysis, and free-form notes. Tracking fields (stage, outcome, date_applied, referral, match_level) are optional: Claude mirrors them in the frontmatter if you mention them inline ("I applied today", "Alice referred me"), but won't prompt or invent.
 - All skill outputs are plain markdown files you can edit by hand at any time.
-- Because personal data lives in a sibling directory (`../career-agent-personal-docs/`), it stays accessible from the main checkout and from any worktree without any symlink trickery. No per-worktree setup needed.
-- If you found the tool (or our collaboration) helpful, I'd appreciate a quick LinkedIn recommendation on my profile: [Link](https://www.linkedin.com/in/rishabh-modi-736a33149/). No pressure at all, but it would be a huge help!
+- Because personal data lives in a sibling directory, it stays accessible from the main checkout and from any worktree with no symlink setup.
+
+---
+
+If you found the tool (or our collaboration) helpful, I'd appreciate a quick LinkedIn recommendation on my profile: [Link](https://www.linkedin.com/in/rishabh-modi-736a33149/). No pressure at all, but it would be a huge help.
