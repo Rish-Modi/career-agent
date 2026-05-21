@@ -124,6 +124,30 @@ career-agent-personal-docs/                # sibling of repo, NOT in git
 
 Full file layout, including which skill writes what, is in [CLAUDE.md](CLAUDE.md).
 
+## Tips and tricks
+
+A few things I've picked up running this workflow myself. Your mileage may vary.
+
+1. **Open `career-agent-personal-docs/` in VS Code with a markdown preview extension** (e.g. [Markdown Preview Enhanced](https://marketplace.visualstudio.com/items?itemName=shd101wyy.markdown-preview-enhanced)). You don't want to be squinting at raw markdown that Claude generated. Cleanly rendered docs are easier to study and handy to keep open during interview calls for quick reference.
+
+2. **Don't pre-create application folders for every posting you look at.** I only ask Claude to create the `applications/<company>/<role>/` folder once I have a recruiter call scheduled. Otherwise you end up with hundreds of stale folders and lose signal.
+
+3. **Use LeetCode as your coding environment, not Claude.** Solve the problem on LeetCode first, then paste both the problem and your solution into `coding-prep`. Treat Claude as the analysis and review layer, not the IDE.
+
+4. **Dump interview notes immediately after the call, while it's fresh.** Take notes during the interview, then paste them into Claude for that role as soon as it ends. Claude updates the role's artifacts so your next round's prep automatically pulls in context from every previous round.
+
+5. **Update `impact-doc.md` as wins happen, not when you're job searching.** Two-line entries when you ship something, get a comp adjustment, or run a project. By the time you actually need a tailored resume, the material is already there and quantified, instead of you trying to reconstruct numbers from six months ago.
+
+6. **Run `/morning` daily even when you're not actively applying.** It surfaces stale roles and open loops in under a minute. Cheap to run, and the alternative is rediscovering you ghosted a recruiter two weeks ago.
+
+7. **Don't trust LinkedIn or Indeed URL fetches.** They block behind login walls, and `job-analyzer` will fail or hallucinate. Paste the Job Description text directly.
+
+8. **STARify projects right after they wrap, not the week before an onsite.** Details, peer names, and metrics decay fast. A 15-minute `/star-stories` session at project close pays back the first time you need it.
+
+9. **Keep one master resume per career level, then tailor.** Build a single "staff-level engineer" resume once, then let `resume-builder` cut and rewrite from it per posting. Starting from scratch every time is wasted reps.
+
+10. **This is my workflow, not the workflow.** If something here doesn't fit how you operate, fork the repo and refactor. The skills are deliberately small so they're easy to bend.
+
 ## Notes
 
 - `job-analyzer` will try to fetch a Job Description from a URL, but LinkedIn and Indeed block automated fetches behind login/JS walls. When that happens, paste the Job Description text and the workflow continues.
