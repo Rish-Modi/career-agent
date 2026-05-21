@@ -23,7 +23,7 @@ This repo handles the **deep work**: Job Description analysis, tailored resumes,
 | `job-analyzer` | Paste a Job Description, get a grounded fit analysis. Persists Job Description + analysis to `$PERSONAL/applications/<company>/<role>/role.md`. | *"Here's a Job Description: [paste]. Worth pursuing?"* |
 | `resume-builder` | Reshape your impact doc into a posting-specific resume in Markdown, `.docx`, and `.pdf`. | *"Build a resume for this Stripe staff role"* |
 | `cover-letter-builder` | Tailored cover letter grounded in your impact doc and the role's requirements. Outputs `.md` and `.docx`. | *"Write a cover letter for the Stripe staff role"* |
-| `coding-prep` | TypeScript coding interview practice. Shared problem bank, private attempt log, tutoring or evaluation mode, timed mocks. | *"Let's practice two-sum"* / *"Mock me on a medium array problem"* |
+| `coding-prep` | Coding interview practice in your preferred language. Shared problem bank, private attempt log, tutoring or evaluation mode, timed mocks. | *"Let's practice two-sum"* / *"Mock me on a medium array problem"* |
 | `star-stories` | Convert your projects into STAR-format Markdown files (one per project, multiple angles per file). Raw material for behavioral interviews. | *"STARify my resume"* / *"STARify [project name]"* |
 | `interview-prep` | Behavioral coverage audit, mock interviews, company briefs, and round-specific cheat-sheets. Pulls from your STAR files. | *"Build a cheat-sheet for the Pinecone HM call"* / *"Mock me on a behavioral round"* |
 | `daily-summary` | EOD log of artifacts touched, open loops, patterns, and next steps. | *"Wrap up the day"* / *"EOD summary"* |
@@ -81,7 +81,9 @@ Feeds directly into `resume-builder` and `cover-letter-builder`.
 
 ## How to use coding-prep
 
-TypeScript-first coding interview practice. Shared problem bank in `coding-bank/problems/`; private attempts in `$PERSONAL/career/coding-log/`.
+Coding interview practice in your preferred language. Shared problem bank in `coding-bank/problems/`; private attempts in `$PERSONAL/career/coding-log/`.
+
+On first use, Claude asks which language you want to practice in (TypeScript, Python, Go, Java, C++, Rust, etc.) and stores it in `$PERSONAL/career/coding-log/preferences.md`. Change it any time with *"switch my coding language to Python"*.
 
 1. **Add a problem.** Paste the problem details. Claude saves to `coding-bank/problems/<slug>.md`.
 2. **Practice.** *"Let's practice two-sum"* or *"surprise me from weak spots"*. Choose **tutoring** (hint ladder) or **evaluation only** (you solve, Claude grades).
