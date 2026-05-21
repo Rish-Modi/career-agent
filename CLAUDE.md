@@ -32,7 +32,8 @@ If `$PERSONAL` does not exist, tell me. Do not create it silently from inside a 
 - `job-analyzer`: Analyze a single job posting for fit. Persists analysis to `$PERSONAL/applications/<company>/<role>/role.md`.
 - `resume-builder`: Build or tailor a resume (Markdown, .docx, .pdf).
 - `cover-letter-builder`: Write a tailored cover letter for a specific role (Markdown, .docx).
-- `interview-prep`: Behavioral prep, STAR stories, mock interviews.
+- `star-stories`: Convert projects (from career docs or pasted text) into STAR-format Markdown under `$PERSONAL/career/star/`. One file per project, multiple angles per file. Raw material owner.
+- `interview-prep`: Selects and rehearses behavioral material from `$PERSONAL/career/star/`. Four modes: coverage audit, mock interview, company brief, round-specific cheat-sheet generation. Does not create new STAR files (delegates to `star-stories`).
 - `coding-prep`: Coding interview practice in TypeScript. Add problems to the shared bank under `coding-bank/problems/`, then practice (tutoring or evaluation) or run a timed mock. Personal attempt log lives in `$PERSONAL/career/coding-log/`.
 - `daily-summary`: End-of-day log of what I did, open loops, and next steps. Writes to `$PERSONAL/career/daily-log/YYYY-MM-DD.md`.
 - `morning`: AM briefing on yesterday's open items, stale roles (>7 days), and one suggested first move. Read-only.
@@ -65,7 +66,8 @@ career-agent-personal-docs/                    # sibling of repo, NOT in git
     brag-doc.md
     personal-info.md
     current-resume.md
-    story-bank.json                            # created by interview-prep
+    star/                                      # created by star-stories
+      <project-slug>.md                        # one file per project, multiple STAR angles per file
     coding-log/                                # created by coding-prep
       attempts.jsonl                           # append-only, one line per attempt (queryable)
       by-problem/
@@ -77,9 +79,11 @@ career-agent-personal-docs/                    # sibling of repo, NOT in git
       <role-slug>/
         role.md                                # Job Description + fit analysis + notes (from job-analyzer)
         resume.md / .pdf                       # tailored resume (from resume-builder)
-        cover-letter.md / .docx                # tailored cover letter (from cover-letter)
-        story-bank.json                        # tailored stories (from interview-prep)
-        interviews/                            # per-round notes
+        cover-letter.md / .docx                # tailored cover letter (from cover-letter-builder)
+        brief.md                               # company research brief (from interview-prep mode 3)
+        <round>-cheat-sheet.md                 # round-specific prep (from interview-prep mode 4)
+        interview-prep/
+          mock-<round>-YYYY-MM-DD.md           # mock interview transcripts (from interview-prep mode 2)
 ```
 
 ## Working with Files
