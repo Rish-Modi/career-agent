@@ -34,7 +34,7 @@ If `$PERSONAL` does not exist, tell me. Do not create it silently from inside a 
 - `cover-letter-builder`: Write a tailored cover letter for a specific role (Markdown, .docx).
 - `star-stories`: Convert projects (from career docs or pasted text) into STAR-format Markdown under `$PERSONAL/career/star/`. One file per project, multiple angles per file. Raw material owner.
 - `interview-prep`: Selects and rehearses behavioral material from `$PERSONAL/career/star/`. Four modes: coverage audit, mock interview, company brief, round-specific cheat-sheet generation. Does not create new STAR files (delegates to `star-stories`).
-- `coding-prep`: Coding interview practice in TypeScript. Add problems to the shared bank under `coding-bank/problems/`, then practice (tutoring or evaluation) or run a timed mock. Personal attempt log lives in `$PERSONAL/career/coding-log/`.
+- `coding-prep`: Coding interview practice in the user's preferred language (stored in `$PERSONAL/career/coding-log/preferences.md`, set on first use, changeable any time). Add problems to the shared bank under `coding-bank/problems/`, then practice (tutoring or evaluation) or run a timed mock. Personal attempt log lives in `$PERSONAL/career/coding-log/`.
 - `daily-summary`: End-of-day log of what I did, open loops, and next steps. Writes to `$PERSONAL/career/daily-log/YYYY-MM-DD.md`.
 - `morning`: AM briefing on yesterday's open items, stale roles (>7 days), and one suggested first move. Read-only.
 

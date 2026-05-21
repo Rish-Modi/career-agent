@@ -1,11 +1,9 @@
 ---
 name: coding-prep
-description: Coding interview practice in TypeScript. Three flows: add a problem to the shared bank, practice an existing problem (tutoring or evaluation), or run a timed mock interview. Tracks attempts in $PERSONAL for redo queries on weak spots.
+description: Coding interview practice in the user's preferred language. Three flows: add a problem to the shared bank, practice an existing problem (tutoring or evaluation), or run a timed mock interview. Tracks attempts in $PERSONAL for redo queries on weak spots.
 ---
 
 # Coding Interview Prep
-
-**Default language: TypeScript.** Do not switch unless the user explicitly asks.
 
 **Role:** You are an assistant. The user solves problems on LeetCode (or similar platforms) and pastes code here. You evaluate, teach, or interview. You do **not** write the solution for the user unless they explicitly ask.
 
@@ -16,13 +14,34 @@ For behavioral / non-coding interview prep, use `interview-prep` instead.
 Resolve `$PERSONAL` from `CLAUDE.md` once per session.
 
 **Shared bank** (in this repo, committed):
-- `coding-bank/problems/<slug>.md` — one file per problem. Schema in `coding-bank/README.md`.
+- `coding-bank/problems/<slug>.md` — one file per problem. Schema in `coding-bank/README.md`. Problems are language-agnostic.
 
 **User's private log** (in `$PERSONAL/career/coding-log/`, gitignored):
+- `preferences.md` — stores the user's preferred coding language (and any future coding-prep preferences).
 - `attempts.jsonl` — append-only, one JSON line per attempt. Powers the redo query.
 - `by-problem/<slug>.md` — rolling notes per problem (user's code per attempt, struggle points, follow-ups).
 
 Hard rule: problem text lives only in the bank; personal artifacts live only in `$PERSONAL`. Never mix.
+
+## Language preference
+
+The user's preferred coding language is stored in `$PERSONAL/career/coding-log/preferences.md` as YAML frontmatter:
+
+```yaml
+---
+language: python
+---
+```
+
+**On every coding-prep invocation, before doing any other work:**
+
+1. Read `$PERSONAL/career/coding-log/preferences.md`.
+2. If the file does not exist or the `language` field is empty: ask the user **once** ("What language do you want to practice in? e.g., TypeScript, Python, Go, Java, C++, Rust"). Write their answer to the file, then continue. Do not prompt again in future sessions.
+3. If the file exists with a language: use it silently. Do not announce it unless the user asks.
+
+**Changing the language later.** Triggers like "switch my coding language to X" / "change my preferred language to X" / "use Python from now on" / "set coding language to X" overwrite the `language` field in `preferences.md` and confirm in one line. For a single-session override ("just for this one, use Go"), do not modify the file; use the override only for the current problem.
+
+Use the stored language whenever you reference syntax, suggest data structures, demonstrate complexity, or write any code at the user's explicit request. Never switch unilaterally.
 
 ## Entry-point routing
 
@@ -34,6 +53,7 @@ Classify the user's request as one of the four flows below before doing anything
 | "Let's practice X" / "give me a problem" / "I want to try `<slug>`" / "surprise me" | Practice          |
 | "Mock me" / "run a mock" / "simulate an interview"                 | Mock interview    |
 | "What should I redo" / "weak spots" / "what's stale"               | Redo query        |
+| "Switch / change my coding language to X" / "use X from now on"    | Update preference |
 
 ---
 
@@ -140,12 +160,24 @@ Read-only. Do not write to the log during a redo query.
 
 ---
 
+## Flow 5: Update preference
+
+User asks to change their stored coding language.
+
+1. Read `$PERSONAL/career/coding-log/preferences.md`.
+2. Overwrite the `language` field with the new value (keep any other fields intact). Create the file if missing.
+3. Confirm in one line: "Coding language set to `<value>`."
+
+Do not run a practice flow in the same turn unless the user asked for one.
+
+---
+
 ## Anti-patterns
 
 - Do not drop the optimal solution upfront, even in evaluation mode. Critique first; reveal only if asked.
 - Do not say "great job" when it wasn't. Be honest about what was weak.
 - Do not store solutions, attempt notes, or any personal data in `coding-bank/`.
 - Do not store problem descriptions in `$PERSONAL/career/coding-log/`. The bank is the source of truth.
-- Do not switch languages on the user. TypeScript unless they say otherwise.
+- Do not switch languages on the user. Always use the language in `$PERSONAL/career/coding-log/preferences.md` unless they explicitly override.
 - Do not pad evaluations with throat-clearing. Lead with what's wrong (or right), then why.
 - No em dashes in any output (per user preference). Use commas, periods, or parentheses.
