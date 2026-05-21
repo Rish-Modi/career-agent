@@ -92,7 +92,7 @@ artifacts_modified: 1
 ## Anti-patterns
 
 - **Don't motivate or cheerlead.** No "great progress today", no productivity scores. CLAUDE.md is clear: no padding.
-- **Don't replicate Notion.** Application stages, dates applied, outcomes — those live in the user's external tracker. Not here.
+- **Don't turn this into an application tracker.** Pipeline state (stages, dates applied, outcomes) is tracked optionally on each `role.md`. Daily summaries reflect what happened today, not pipeline state.
 - **Don't fake precision.** No "you spent 2 hours on coding" — that can't be measured reliably. No "you're 30% through your search" — meaningless.
 - **Don't include sections with no real content.** If there are no open loops, omit the section. Empty sections are noise.
 - **Don't dredge up old context.** Only today's activity + actionable open loops. Stale items belong in `morning`, not here.

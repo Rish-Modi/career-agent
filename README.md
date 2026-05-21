@@ -1,6 +1,6 @@
 # Career Agent
 
-A Claude Code project that turns job searching into a structured workflow. Your career history, goals, target companies, and active applications all live in one place so Claude can reason across them. No more juggling Google Docs, Notion, and a dozen open Job Descriptions.
+A Claude Code project that turns job searching into a structured workflow. Your career history, goals, target companies, and active applications all live in one place so Claude can reason across them. No more juggling scattered docs and a dozen open Job Descriptions.
 
 ## A typical day
 
@@ -14,7 +14,7 @@ Daytime   →   paste a Job Description, build a          per-role artifacts app
 Evening   →   "wrap up the day"                         log written to $PERSONAL/career/daily-log/YYYY-MM-DD.md
 ```
 
-This repo handles the **deep work**: Job Description analysis, tailored resumes, interview prep, per-role artifacts. Application *status* (stage, dates applied, outcomes, match level) is intentionally **not** stored here. Keep that in Notion or your tracker of choice. The two systems don't need to sync because they don't overlap.
+This repo handles the **deep work**: Job Description analysis, tailored resumes, interview prep, per-role artifacts. Lightweight tracking fields (stage, outcome, date applied, referral, match level) are supported optionally on each `role.md` and only written when you mention them inline. The repo isn't an application tracker; manage your pipeline however you prefer.
 
 ## The toolbox
 
@@ -125,7 +125,7 @@ Full file layout, including which skill writes what, is in [CLAUDE.md](CLAUDE.md
 ## Notes
 
 - `job-analyzer` will try to fetch a Job Description from a URL, but LinkedIn and Indeed block automated fetches behind login/JS walls. When that happens, paste the Job Description text and the workflow continues.
-- `role.md` files store the Job Description, fit analysis, and free-form notes. Tracking fields (stage, outcome, date_applied, referral, match_level) are optional: Claude will mirror them in the frontmatter if you mention them inline ("I applied today", "Alice referred me"), but won't prompt or invent. Your external tracker (e.g., Notion) remains the system of record.
+- `role.md` files store the Job Description, fit analysis, and free-form notes. Tracking fields (stage, outcome, date_applied, referral, match_level) are optional: Claude mirrors them in the frontmatter if you mention them inline ("I applied today", "Alice referred me"), but won't prompt or invent.
 - All skill outputs are plain markdown files you can edit by hand at any time.
 - Because personal data lives in a sibling directory, it stays accessible from the main checkout and from any worktree with no symlink setup.
 
