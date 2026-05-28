@@ -2,6 +2,8 @@
 
 A Claude Code project that turns job searching into a structured workflow. Your career history, goals, target companies, and active applications all live in one place so Claude can reason across them. No more juggling scattered docs and a dozen open Job Descriptions.
 
+**New here? Run `/onboard` inside Claude Code to get started.** It bootstraps your personal data directory, checks prerequisites, and walks you through the four core docs the rest of the tool reads from. Already set up? Run `/help` any time to see what each skill does or learn how to chain them.
+
 ## A typical day
 
 ```
@@ -20,6 +22,8 @@ This repo handles the **deep work**: Job Description analysis, tailored resumes,
 
 | Skill | What it does | Trigger phrase |
 |---|---|---|
+| `onboard` | First-run setup. Bootstraps `$PERSONAL`, checks prereqs, and interviews you for the four core docs. | *"/onboard"* / *"I just cloned the repo"* |
+| `help` | Lists every skill, explains one on request, and walks through common workflows. | *"/help"* / *"what can you do"* |
 | `job-analyzer` | Paste a Job Description, get a grounded fit analysis. Persists Job Description + analysis to `$PERSONAL/applications/<company>/<role>/role.md`. | *"Here's a Job Description: [paste]. Worth pursuing?"* |
 | `resume-builder` | Reshape your impact doc into a posting-specific resume in Markdown, `.docx`, and `.pdf`. | *"Build a resume for this Stripe staff role"* |
 | `cover-letter-builder` | Tailored cover letter grounded in your impact doc and the role's requirements. Outputs `.md` and `.docx`. | *"Write a cover letter for the Stripe staff role"* |
@@ -52,7 +56,9 @@ pip install python-docx reportlab requests
 claude
 ```
 
-Then fill in your real content in `$PERSONAL/career/impact-doc.md` (most important), plus `goals.md`, `brag-doc.md`, and `personal-info.md`.
+Then run `/onboard` inside Claude Code. It bootstraps `$PERSONAL` for you, checks prerequisites, and walks you through filling in `impact-doc.md` (most important), `goals.md`, `brag-doc.md`, and `personal-info.md`. Steps 2 and 3 above can be skipped if you let `/onboard` do them, but they're listed in case you want to do it manually.
+
+If you already know your way around, run `/help` any time to see the full toolbox or learn how a specific skill works.
 
 You also need [Claude Code](https://claude.ai/code) installed and authenticated.
 

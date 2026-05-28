@@ -29,6 +29,8 @@ If `$PERSONAL` does not exist, tell me. Do not create it silently from inside a 
 
 ## Available Skills
 
+- `onboard`: First-run setup. Bootstraps `$PERSONAL`, checks prerequisites (pandoc, python deps, git config), and runs a guided interview to populate `personal-info`, `goals`, `impact-doc`, and `brag-doc`. Detects partial setup and resumes.
+- `help`: Conversational guide to the toolbox. Lists every skill, explains a specific skill on request, and walks through common workflows (new application, interview prep ramp, etc.). Read-only.
 - `job-analyzer`: Analyze a single job posting for fit. Persists analysis to `$PERSONAL/applications/<company>/<role>/role.md`.
 - `resume-builder`: Build or tailor a resume (Markdown, .docx, .pdf).
 - `cover-letter-builder`: Write a tailored cover letter for a specific role (Markdown, .docx).
