@@ -5,6 +5,7 @@ difficulty: medium
 source: leetcode
 url: https://leetcode.com/problems/longest-palindromic-substring/
 tags: [string, dynamic-programming, two-pointers]
+lists: [blind-75]
 added: 2026-05-17
 ---
 

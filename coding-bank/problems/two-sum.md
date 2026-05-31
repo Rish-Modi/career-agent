@@ -5,6 +5,7 @@ difficulty: easy
 source: leetcode
 url: https://leetcode.com/problems/two-sum/
 tags: [array, hash-map]
+lists: [blind-75]
 added: 2026-05-16
 ---
 

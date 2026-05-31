@@ -15,7 +15,8 @@ title: Two Sum
 difficulty: easy                       # easy | medium | hard
 source: leetcode                       # leetcode | hackerrank | codesignal | neetcode | other
 url: https://leetcode.com/problems/two-sum/
-tags: [array, hash-map]                # pattern tags — see "Tag vocabulary" below
+tags: [array, hash-map]                # pattern tags, see "Tag vocabulary" below
+lists: [blind-75]                      # optional, problem-set membership (blind-75, neetcode-150, etc.)
 added: 2026-05-16                      # YYYY-MM-DD
 ---
 
