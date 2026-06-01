@@ -108,7 +108,12 @@ For users practicing patterns they already know.
 ### Logging (both sub-modes)
 
 After the attempt, before ending the response:
-1. Ask the user: how long did it take, and what is the status? (`clean` / `with-hints` / `failed` / `gave-up`).
+1. Ask the user: how long did it take, and what is the status? (`clean` / `studied` / `with-hints` / `failed` / `gave-up`).
+   - `clean`: solved with no external help.
+   - `studied`: watched a tutorial or read a solution, understood it, then implemented yourself.
+   - `with-hints`: got nudges mid-solve (from this skill or elsewhere) without seeing a full solution.
+   - `failed`: attempted and could not complete.
+   - `gave-up`: abandoned without a serious attempt.
 2. Append one line to `$PERSONAL/career/coding-log/attempts.jsonl`:
    ```json
    {"slug":"<slug>","date":"YYYY-MM-DD","mode":"practice","sub":"tutoring|evaluation","status":"...","time_min":<int|null>,"hints_used":<int>,"pattern":"<primary tag>","difficulty":"<easy|medium|hard>"}
@@ -152,8 +157,9 @@ User asks what to revisit.
 2. Group by slug; take the latest attempt per slug.
 3. Surface in this order, cap at 5 total:
    1. `failed` or `gave-up` (any age).
-   2. `with-hints` older than 7 days.
-   3. `clean` older than 30 days, weighted toward weaker patterns.
+   2. `studied` older than 3 days (the goal is to re-solve unaided soon after studying).
+   3. `with-hints` older than 7 days.
+   4. `clean` older than 30 days, weighted toward weaker patterns.
 4. For each: slug, last status, last date, primary pattern, one-line suggestion ("re-attempt as evaluation," "mock with a sorted-input follow-up," etc.).
 
 Read-only. Do not write to the log during a redo query.
