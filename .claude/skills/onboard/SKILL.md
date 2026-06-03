@@ -27,15 +27,16 @@ Run these phases in order. **Each phase is resumable**: re-running `/onboard` af
 
 ### Phase 0: Resolve $PERSONAL and detect state
 
-1. Resolve `$PERSONAL` per `CLAUDE.md` (sibling of the main repo, named `career-agent-personal-docs/`).
+1. Resolve `$PERSONAL` and `$LEETCODE_BANK` per `CLAUDE.md` (both are siblings of the main repo).
 2. Check what already exists:
    - Does `$PERSONAL/` exist?
    - Does `$PERSONAL/career/` exist?
    - Does each of `personal-info.md`, `goals.md`, `impact-doc.md`, `brag-doc.md` exist?
    - For each existing file: is it still a template stub (contains the original `<!-- comments -->` and empty fields) or does it have real content?
+   - Does `$LEETCODE_BANK/` exist (for Phase 2.5)?
 3. Print a one-line state summary, e.g.:
    ```
-   Setup status: $PERSONAL exists, personal-info filled, goals stub, impact-doc and brag-doc missing.
+   Setup status: $PERSONAL exists, personal-info filled, goals stub, impact-doc and brag-doc missing. $LEETCODE_BANK missing.
    Resuming from goals.
    ```
 4. If everything is already filled with real content, ask the user whether they want to re-interview any section or just exit.
@@ -72,6 +73,26 @@ $PERSONAL/career/brag-doc.md        (copy from career/brag-doc.template.md if mi
 ```
 
 Never overwrite an existing file at this phase. Templates only land in slots that are empty.
+
+### Phase 2.5: Bootstrap $LEETCODE_BANK
+
+The `coding-prep` skill's company-lookup flow reads from a read-only sibling clone of an upstream open-source repo. Resolve `$LEETCODE_BANK` per `CLAUDE.md` (sibling of the main repo, named `leetcode-companywise-interview-questions/`).
+
+1. **If `$LEETCODE_BANK` does not exist:** clone it shallow.
+   ```bash
+   git clone --depth 1 https://github.com/snehasishroy/leetcode-companywise-interview-questions.git "$LEETCODE_BANK"
+   ```
+   Tell the user what you're doing in one line ("Cloning company-tagged question bank to $LEETCODE_BANK") before running. The clone is several MB and takes a few seconds. Confirm success in one line.
+
+2. **If `$LEETCODE_BANK` already exists:** fast-forward to upstream.
+   ```bash
+   git -C "$LEETCODE_BANK" pull --ff-only
+   ```
+   Silent if up-to-date. If it errors (uncommitted changes, diverged), tell the user and skip; do not force-update someone else's clone.
+
+3. **If `git` is missing or the clone fails (no network, etc.):** report in one line and continue. The bank is optional infrastructure; everything else still works. Suggest the user re-run `/onboard` later or clone manually.
+
+Never modify files inside `$LEETCODE_BANK`. It is upstream-owned. The only writes here are `git pull --ff-only` to refresh.
 
 ### Phase 3: Set expectations
 

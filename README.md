@@ -4,6 +4,14 @@ A Claude Code project that turns job searching into a structured workflow. Your 
 
 **New here? Run `/onboard` inside Claude Code to get started.** It bootstraps your personal data directory, checks prerequisites, and walks you through the four core docs the rest of the tool reads from. Already set up? Run `/help` any time to see what each skill does or learn how to chain them.
 
+## What's new
+
+**Company-tagged coding-prep lookups.** `coding-prep` now has a company-lookup flow: ask *"What does Roblox ask?"* or *"prep for my Google interview"* and it surfaces the recent reported interview questions for that company, grouped by recency window (30 days, 3 months, 6 months, or all-time). From there you can add the top problems to your bank, start practicing, or ask Claude to build a drill plan against the list.
+
+Data is sourced from [snehasishroy/leetcode-companywise-interview-questions](https://github.com/snehasishroy/leetcode-companywise-interview-questions), an open-source community snapshot of self-reported interview questions. It's a pattern-coverage signal, not literal predictions. `/onboard` clones the repo as a read-only sibling of `career-agent/` on first run and keeps it fresh on every coding-prep company-lookup.
+
+**`star-stories` skill.** Converts your career projects into STAR-format Markdown files (one per project, multiple angles per file: technical, leadership, ambiguity, conflict, etc.). Source material for `interview-prep`'s mock interviews, coverage audits, and cheat-sheets. Trigger with *"STARify my resume"* (full portfolio) or *"STARify [project name]"* (single project). Files land in `$PERSONAL/career/star/`.
+
 ## A typical day
 
 ```
@@ -68,8 +76,9 @@ Your private career data is stored **outside this repo** in a sibling directory 
 
 ```
 Coding/
-  career-agent/                       # this repo (committed to git)
-  career-agent-personal-docs/         # your private data (NOT in git, sibling of repo)
+  career-agent/                                  # this repo (committed to git)
+  career-agent-personal-docs/                    # your private data (NOT in git, sibling of repo)
+  leetcode-companywise-interview-questions/      # read-only upstream clone, kept fresh by /onboard and coding-prep
 ```
 
 Throughout the skills and `CLAUDE.md`, `$PERSONAL` refers to the absolute path of that sibling directory. Skills resolve it dynamically from the git root, so it works from the main checkout and from any worktree without hard-coding.
@@ -94,7 +103,8 @@ On first use, Claude asks which language you want to practice in (TypeScript, Py
 1. **Add a problem.** Paste the problem details. Claude saves to `coding-bank/problems/<slug>.md`.
 2. **Practice.** *"Let's practice two-sum"* or *"surprise me from weak spots"*. Choose **tutoring** (hint ladder) or **evaluation only** (you solve, Claude grades).
 3. **Mock me.** Timed 45 min, no hints, follow-up variant, hire/no-hire grade at the end.
-4. **Query weak spots.** *"What should I redo today?"* — Claude reads your attempt log and surfaces failed or stale problems.
+4. **Query weak spots.** *"What should I redo today?"*. Claude reads your attempt log and surfaces failed or stale problems.
+5. **Company lookup.** *"What does Roblox ask?"* or *"prep for my Google interview"*. Claude reads the company-tagged question bank (a sibling clone of [snehasishroy/leetcode-companywise-interview-questions](https://github.com/snehasishroy/leetcode-companywise-interview-questions), an open-source community repo), picks a recency window, and surfaces the reported questions. From there: add to bank, start practicing, or build a drill plan.
 
 Attempts append to `$PERSONAL/career/coding-log/attempts.jsonl`, with per-problem notes in `by-problem/<slug>.md`.
 
@@ -116,16 +126,24 @@ interview-prep does *not* create new STAR files. If it needs a story you don't h
 ## File layout
 
 ```
-career-agent/                              # this repo
-  career/                                  # personal-doc templates
-  coding-bank/problems/                    # shared coding library
-  .claude/skills/                          # skill definitions
-  CLAUDE.md                                # full project instructions
+career-agent/                                  # this repo
+  career/                                      # personal-doc templates
+  coding-bank/problems/                        # shared coding library
+  .claude/skills/                              # skill definitions
+  CLAUDE.md                                    # full project instructions
   README.md
 
-career-agent-personal-docs/                # sibling of repo, NOT in git
-  career/                                  # impact doc, goals, brag doc, STAR files, daily logs, coding log
-  applications/<company>/<role-slug>/      # per-role artifacts: role.md, resume, cover letter, cheat-sheets, briefs, interview notes
+career-agent-personal-docs/                    # sibling of repo, NOT in git
+  career/                                      # impact doc, goals, brag doc, STAR files, daily logs, coding log
+  applications/<company>/<role-slug>/          # per-role artifacts: role.md, resume, cover letter, cheat-sheets, briefs, interview notes
+
+leetcode-companywise-interview-questions/      # sibling of repo, NOT in git, read-only upstream clone
+  <company-slug>/                              # one folder per company
+    all.csv                                    # full known set
+    thirty-days.csv                            # last 30 days
+    three-months.csv                           # last 90 days
+    six-months.csv                             # last 180 days
+    more-than-six-months.csv                   # older than 180 days
 ```
 
 Full file layout, including which skill writes what, is in [CLAUDE.md](CLAUDE.md).

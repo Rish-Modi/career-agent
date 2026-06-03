@@ -27,6 +27,20 @@ PERSONAL="$(dirname "$(dirname "$(git rev-parse --path-format=absolute --git-com
 
 If `$PERSONAL` does not exist, tell me. Do not create it silently from inside a skill: the repo's setup step is what bootstraps that directory.
 
+## Company-tagged question bank location
+
+A read-only sibling clone of [snehasishroy/leetcode-companywise-interview-questions](https://github.com/snehasishroy/leetcode-companywise-interview-questions) lives alongside `$PERSONAL` as `leetcode-companywise-interview-questions/`. It powers the company-lookup flow in `coding-prep` (find recent interview questions by company).
+
+The placeholder `$LEETCODE_BANK` refers to its absolute path. Resolve it the same way as `$PERSONAL`:
+
+```bash
+LEETCODE_BANK="$(dirname "$(dirname "$(git rev-parse --path-format=absolute --git-common-dir)")")/leetcode-companywise-interview-questions"
+```
+
+If `$LEETCODE_BANK` does not exist, tell me and suggest running `/onboard` to bootstrap it. Do not clone it silently from inside a skill other than `onboard`.
+
+Structure: `$LEETCODE_BANK/<company-slug>/<window>.csv`, where `<window>` is one of `thirty-days.csv`, `three-months.csv`, `six-months.csv`, `more-than-six-months.csv`, or `all.csv`. Each CSV lists problems asked at that company in that time window.
+
 ## Available Skills
 
 - `onboard`: First-run setup. Bootstraps `$PERSONAL`, checks prerequisites (pandoc, python deps, git config), and runs a guided interview to populate `personal-info`, `goals`, `impact-doc`, and `brag-doc`. Detects partial setup and resumes.
@@ -60,6 +74,14 @@ career-agent/                                  # this repo (committed)
     settings.local.json                        # personal permissions (gitignored)
   CLAUDE.md
   README.md
+
+leetcode-companywise-interview-questions/      # sibling of repo, NOT in git, read-only upstream clone
+  <company-slug>/
+    all.csv                                    # all known interview questions for this company
+    thirty-days.csv                            # questions reported in the last 30 days
+    three-months.csv                           # questions reported in the last 90 days
+    six-months.csv                             # questions reported in the last 180 days
+    more-than-six-months.csv                   # questions reported earlier than 180 days
 
 career-agent-personal-docs/                    # sibling of repo, NOT in git
   career/

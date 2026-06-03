@@ -1,6 +1,6 @@
 ---
 name: coding-prep
-description: Coding interview practice in the user's preferred language. Three flows: add a problem to the shared bank, practice an existing problem (tutoring or evaluation), or run a timed mock interview. Tracks attempts in $PERSONAL for redo queries on weak spots.
+description: Coding interview practice in the user's preferred language. Flows: add a problem to the shared bank, practice an existing problem (tutoring or evaluation), run a timed mock interview, query weak spots, or look up which problems a specific company is reported to ask (from an open-source company-tagged question bank). Tracks attempts in $PERSONAL for redo queries on weak spots.
 ---
 
 # Coding Interview Prep
@@ -53,6 +53,7 @@ Classify the user's request as one of the four flows below before doing anything
 | "Let's practice X" / "give me a problem" / "I want to try `<slug>`" / "surprise me" | Practice          |
 | "Mock me" / "run a mock" / "simulate an interview"                 | Mock interview    |
 | "What should I redo" / "weak spots" / "what's stale"               | Redo query        |
+| "What does `<company>` ask?" / "Roblox questions" / "prep for my Google interview" | Company lookup    |
 | "Switch / change my coding language to X" / "use X from now on"    | Update preference |
 
 ---
@@ -175,6 +176,38 @@ User asks to change their stored coding language.
 3. Confirm in one line: "Coding language set to `<value>`."
 
 Do not run a practice flow in the same turn unless the user asked for one.
+
+---
+
+## Flow 6: Company lookup
+
+User wants to see which problems are reported as asked at a specific company. Sources from `$LEETCODE_BANK` (the read-only sibling clone documented in `CLAUDE.md`), which is a community-maintained snapshot of public interview-question reports.
+
+1. **Resolve and verify `$LEETCODE_BANK`.** If the directory does not exist, tell the user: "The company-tagged question bank isn't bootstrapped. Run `/onboard` to clone it (or `git clone https://github.com/snehasishroy/leetcode-companywise-interview-questions.git "$LEETCODE_BANK"` manually)." Stop.
+
+2. **Freshness protocol.** Before reading, fast-forward the clone:
+   ```bash
+   git -C "$LEETCODE_BANK" pull --ff-only
+   ```
+   Run silently. If it fails (no network, diverged), note in one line and continue with the local snapshot.
+
+3. **Resolve the company slug.** Lowercase, kebab-case. If the user said "Google", look for `$LEETCODE_BANK/google/`. If the directory doesn't exist, list close matches (`ls "$LEETCODE_BANK" | grep -i <fragment>`) and ask the user to pick. Some companies have non-obvious slugs.
+
+4. **Pick the recency window.** Default to `six-months.csv` if it exists; that balances signal and volume. Honor explicit asks ("last 30 days" -> `thirty-days.csv`, "everything" -> `all.csv`). If the chosen window doesn't exist for that company, fall back to the next-widest that does.
+
+5. **Read and present.** Each CSV is a list of problems with LeetCode URLs. Present:
+   - Total count in the chosen window.
+   - The top N (default 15) by frequency if the CSV has a frequency column, otherwise as listed.
+   - Group by pattern when the user asks for prep planning ("which patterns dominate Google's recent set?").
+
+6. **Offer next steps.** Three natural follow-ups:
+   - "Add the top K to the bank" -> route each to Flow 1 (Add to bank).
+   - "Start practicing the first one" -> route to Flow 2 (Practice).
+   - "Build a drill plan against this list" -> ask for timeline + days available, then sequence problems study-mode -> evaluation-mode -> mock based on the timeline.
+
+**Note for the user (mention once when this flow first runs in a session):** "Company-tag data is sourced from an open-source community repo ([snehasishroy/leetcode-companywise-interview-questions](https://github.com/snehasishroy/leetcode-companywise-interview-questions)). It's a public snapshot of self-reported interview questions, not Roblox/Google/etc. official data. Useful for pattern coverage, not literal predictions."
+
+Read-only with respect to `$LEETCODE_BANK`. Do not modify anything inside it.
 
 ---
 
