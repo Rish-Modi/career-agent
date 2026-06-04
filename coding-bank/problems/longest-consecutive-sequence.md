@@ -6,6 +6,7 @@ source: leetcode
 url: https://leetcode.com/problems/longest-consecutive-sequence/
 tags: [array, hash-set, union-find]
 lists: [blind-75]
+companies: [roblox]
 added: 2026-05-30
 ---
 

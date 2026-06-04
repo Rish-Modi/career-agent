@@ -6,6 +6,7 @@ source: leetcode
 url: https://leetcode.com/problems/longest-substring-without-repeating-characters/
 tags: [string, hash-map, sliding-window]
 lists: [blind-75]
+companies: [roblox]
 added: 2026-05-30
 ---
 
