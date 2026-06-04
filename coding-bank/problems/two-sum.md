@@ -6,6 +6,7 @@ source: leetcode
 url: https://leetcode.com/problems/two-sum/
 tags: [array, hash-map]
 lists: [blind-75]
+companies: [roblox]
 added: 2026-05-16
 ---
 

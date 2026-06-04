@@ -17,6 +17,7 @@ source: leetcode                       # leetcode | hackerrank | codesignal | ne
 url: https://leetcode.com/problems/two-sum/
 tags: [array, hash-map]                # pattern tags, see "Tag vocabulary" below
 lists: [blind-75]                      # optional, problem-set membership (blind-75, neetcode-150, etc.)
+companies: [roblox, google]            # optional, companies known to ask this problem (lowercase, kebab-case)
 added: 2026-05-16                      # YYYY-MM-DD
 ---
 
@@ -53,6 +54,10 @@ Examples:
 | Longest Substring Without Repeating Characters     | `longest-substring-without-repeating-characters`  |
 | 3Sum                                               | `three-sum`                                       |
 | Best Time to Buy and Sell Stock II                 | `best-time-to-buy-and-sell-stock-ii`              |
+
+## Companies
+
+Optional. Use lowercase, kebab-case company slugs that match the folders in `$LEETCODE_BANK/` (e.g., `roblox`, `google`, `meta`, `amazon`). A problem may be asked at multiple companies, so this is a list. Source the values from the company-tagged CSVs in `$LEETCODE_BANK/<company>/all.csv`. Omit the field entirely if there is no company signal.
 
 ## Tag vocabulary
 
